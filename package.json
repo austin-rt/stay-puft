@@ -1,6 +1,6 @@
 {
   "name": "nwc-puft",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "dependencies": {
@@ -15,8 +15,8 @@
     "@types/react-google-recaptcha-enterprise": "^1.0.3",
     "postcss": "^8.4.32",
     "postcss-cli": "^11.0.0",
-    "react": "file:../af-nextjs/node_modules/react",
-    "react-dom": "file:../af-nextjs/node_modules/react-dom",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
     "react-google-recaptcha-enterprise": "^1.0.3",
     "react-hook-form": "^7.51.5",
     "react-scripts": "5.0.1",
