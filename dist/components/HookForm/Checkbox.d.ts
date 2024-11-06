@@ -1,0 +1,30 @@
+import React, { ChangeEvent, FocusEvent, ReactNode } from 'react';
+import { UseFormProps } from 'react-hook-form';
+import { FieldNamesType, FieldValidationMethodType } from '../../types';
+export interface CheckboxProps {
+    checkTheme?: string;
+    criteriaMode?: UseFormProps['criteriaMode'];
+    dataAttr?: string;
+    delayError?: UseFormProps['delayError'];
+    disabled?: boolean;
+    error?: string;
+    id: string;
+    inputTheme?: string;
+    mode?: UseFormProps['mode'];
+    name: FieldNamesType;
+    onBlur?: (e: FocusEvent<HTMLInputElement>) => void;
+    onChange?: (e: ChangeEvent<HTMLInputElement>) => void;
+    onFocus?: (e: FocusEvent<HTMLInputElement>) => void;
+    optional?: boolean;
+    register: Function;
+    required?: boolean;
+    reValidateMode?: UseFormProps['reValidateMode'];
+    shouldFocusError?: UseFormProps['shouldFocusError'];
+    shouldUnregister?: UseFormProps['shouldUnregister'];
+    theme?: string;
+    title: string | ReactNode;
+    titleTheme?: string;
+    validation?: FieldValidationMethodType;
+}
+declare const Checkbox: ({ checkTheme, criteriaMode, dataAttr, delayError, disabled, error, id, inputTheme, mode, name, onBlur, onChange, onFocus, optional, register, required, reValidateMode, shouldFocusError, shouldUnregister, theme, title, titleTheme, validation, }: CheckboxProps) => React.JSX.Element;
+export default Checkbox;

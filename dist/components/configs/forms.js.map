@@ -1,0 +1,1 @@
+{"version":3,"file":"forms.js","sourceRoot":"","sources":["../../../src/components/configs/forms.ts"],"names":[],"mappings":"AAAA,MAAM,gBAAgB,GAAG;IACvB,YAAY,EAAE;QACZ,OAAO,EAAE,OAAO;KACjB;IACD,QAAQ,EAAE;QACR,WAAW,EAAE,gBAAgB;QAC7B,QAAQ,EAAE,cAAc;KACzB;IACD,YAAY,EAAE;QACZ,OAAO,EAAE,qBAAqB;KAC/B;CACF,CAAC;AAEF,eAAe,gBAAgB,CAAC"}

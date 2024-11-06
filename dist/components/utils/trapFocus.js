@@ -1,14 +1,12 @@
-"use strict";
-exports.__esModule = true;
-var trapFocus = function (e, id, enabled) {
+const trapFocus = (e, id, enabled) => {
     // only execute if tab is pressed
     if (e.key !== 'Tab' || !enabled)
         return;
     // here we query all focusable elements, customize as your own need
-    var parentEl = document.querySelector(id);
-    var focusableModalElements = parentEl.querySelectorAll('a[href], [role="button"], button:not([disabled]), textarea, input, select');
-    var firstElement = focusableModalElements[0];
-    var lastElement = focusableModalElements[focusableModalElements.length - 1];
+    const parentEl = document.querySelector(id);
+    const focusableModalElements = parentEl.querySelectorAll('a[href], [role="button"], button:not([disabled]), textarea, input, select');
+    const firstElement = focusableModalElements[0];
+    const lastElement = focusableModalElements[focusableModalElements.length - 1];
     console.log(firstElement, lastElement);
     // if going forward by pressing tab and lastElement is active shift focus to first focusable element
     if (!e.shiftKey && document.activeElement === lastElement) {
@@ -21,5 +19,5 @@ var trapFocus = function (e, id, enabled) {
         e.preventDefault();
     }
 };
-exports["default"] = trapFocus;
+export default trapFocus;
 //# sourceMappingURL=trapFocus.js.map

@@ -1,5 +1,2 @@
-"use strict";
-exports.__esModule = true;
-exports.config = void 0;
-exports.config = {};
+export const config = {};
 //# sourceMappingURL=mainConfig.js.map

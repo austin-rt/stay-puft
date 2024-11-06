@@ -1,6 +1,3 @@
-"use strict";
-exports.__esModule = true;
-exports.isElementVisible = void 0;
 /**
  * Checks if the specified element is currently visible within the viewport,
  * considering an optional offset for top sticky elements live navbars or headers.
@@ -16,11 +13,11 @@ exports.isElementVisible = void 0;
  * }
  * @limitations This function only checks if the element's bounding box is within the viewport, considering the specified offset. It does not account for CSS visibility or opacity.
  */
-var isElementVisible = function (el, offset) {
-    var rect = el.getBoundingClientRect();
+export const isElementVisible = (el, offset) => {
+    const rect = el.getBoundingClientRect();
     // get the height and width of the window or the document
-    var windowHeight = window.innerHeight || document.documentElement.clientHeight;
-    var windowWidth = window.innerWidth || document.documentElement.clientWidth;
+    const windowHeight = window.innerHeight || document.documentElement.clientHeight;
+    const windowWidth = window.innerWidth || document.documentElement.clientWidth;
     return (
     // if the top and left of the element are greater than or equal to the negative offset
     // and the bottom and right of the element are less than or equal to
@@ -30,7 +27,6 @@ var isElementVisible = function (el, offset) {
         rect.bottom <= windowHeight + offset &&
         rect.right <= windowWidth + offset);
 };
-exports.isElementVisible = isElementVisible;
 /**
  * Scrolls to the specified element on the page with optional offset adjustment,
  * providing smooth scrolling behavior.
@@ -43,28 +39,26 @@ exports.isElementVisible = isElementVisible;
  * scrollToElement('.scroll-target', 100);
  * @limitations This function scrolls to the top-left corner of the specified element. It does not provide fine-grained control over scroll position or support for horizontal scrolling.
  */
-var scrollToElement = function (selector, behavior, offset, checkForVisibility) {
+const scrollToElement = (selector, behavior = 'smooth', offset, checkForVisibility = false) => {
     var _a;
-    if (behavior === void 0) { behavior = 'smooth'; }
-    if (checkForVisibility === void 0) { checkForVisibility = false; }
     if (!document)
         return;
-    var element = document.querySelector(selector);
+    const element = document.querySelector(selector);
     if (!element)
         return;
-    var headerHeight = (_a = document.querySelector('[data-slmr-offsetter="header"]')) === null || _a === void 0 ? void 0 : _a.clientHeight;
+    const headerHeight = (_a = document.querySelector('[data-slmr-offsetter="header"]')) === null || _a === void 0 ? void 0 : _a.clientHeight;
     // check for offset, then header height, then default to 0
-    var offsetAmount = offset && offset <= 0 ? offset : headerHeight ? headerHeight + 15 : 0;
+    const offsetAmount = offset && offset <= 0 ? offset : headerHeight ? headerHeight + 15 : 0;
     // if flag is on and the element is already visible, return
-    if (checkForVisibility && (0, exports.isElementVisible)(element, offsetAmount))
+    if (checkForVisibility && isElementVisible(element, offsetAmount))
         return;
     // scroll to the element minus the offset amount from the top of the document
     window.scrollTo({
-        behavior: behavior,
+        behavior,
         top: element.getBoundingClientRect().top -
             document.body.getBoundingClientRect().top -
-            offsetAmount
+            offsetAmount,
     });
 };
-exports["default"] = scrollToElement;
+export default scrollToElement;
 //# sourceMappingURL=scrollToElement.js.map

@@ -1,9 +1,7 @@
-"use strict";
-exports.__esModule = true;
-var UseMediaQueries = function () {
-    var mq = 'xs';
+const UseMediaQueries = () => {
+    let mq = 'xs';
     if (window) {
-        var mediaQuery = window.innerWidth;
+        const mediaQuery = window.innerWidth;
         switch (true) {
             case mediaQuery <= 575:
                 mq = 'xs';
@@ -24,5 +22,5 @@ var UseMediaQueries = function () {
     }
     return mq;
 };
-exports["default"] = UseMediaQueries;
+export default UseMediaQueries;
 //# sourceMappingURL=mediaQueries.js.map
