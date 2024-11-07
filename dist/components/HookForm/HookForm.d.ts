@@ -190,7 +190,7 @@ export interface HookFormProps {
  *  <img style="width: 75%" src="https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExb3k1YWNudGhnd2ZpbWN4bXJmMG42YWNmcTd5M3hydHVldnJ3bXVqNyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/3o72Fk2ZH8NJ6BNa8w/giphy.webp" />
  * </center>
  * <br/>
- * Stay Puft Forms is a feature rich form component originally built for an e-commerce web app. The styling is dependant on Tailwindcss as well as some prebuilt components and Tailwind variables from  the `nwc-slimer` library. Due to ease of use regarding validation, the “package” is not a dedicated npm package. I decided to store it locally in our web app while ironing out all the bugs.
+ * Stay Puft Forms is a typesafe, feature rich form component originally built for an e-commerce web app. The styling is dependant on Tailwindcss as well as some prebuilt components and Tailwind variables from  the `nwc-slimer` library. Due to ease of use regarding validation, the “package” is not a dedicated npm package. I decided to store it locally in our web app while ironing out all the bugs.
  *
  *<br/>
  * # [Jump to Demo](#demo)
