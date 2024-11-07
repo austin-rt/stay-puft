@@ -1,6 +1,6 @@
 import { ChangeEvent, FocusEvent, KeyboardEvent, ReactNode } from 'react';
-import { ButtonProps } from '../components/slimer/Button';
-import { validationSchemas } from '../components/HookForm/HookFormValidationSchemas';
+import { ButtonProps } from '../components/Common/Button';
+import { validationSchemas } from '../components/configs/HookFormValidationSchemas';
 export type HTMLInputElementAutoComplete = 'off' | 'on';
 export type FieldValidationMethodType = 'full' | 'none' | 'requiredOnly';
 export type ChangeEventTypes = ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLTextAreaElement> | ChangeEvent<HTMLSelectElement>;
@@ -116,10 +116,6 @@ export interface FieldType {
      */
     placeholder?: string;
     /**
-     * Should the required label be displayed?
-     */
-    required?: boolean;
-    /**
      * Should a reset button be displayed inline?
      */
     resetButton?: boolean;
@@ -167,6 +163,9 @@ export interface FieldType {
      */
     type?: 'captcha' | 'checkbox' | 'email' | 'password' | 'radio' | 'select' | 'state' | 'tel' | 'text' | 'textarea';
 }
+export type ModifiedFieldType = FieldType & {
+    optional: boolean;
+};
 export interface OptionType {
     disabled?: boolean;
     title: string;

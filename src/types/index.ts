@@ -1,8 +1,8 @@
 import { ChangeEvent, FocusEvent, KeyboardEvent, ReactNode } from 'react';
 
-import { ButtonProps } from '../components/slimer/Button';
+import { ButtonProps } from '../components/Common/Button';
 
-import { validationSchemas } from '../components/HookForm/HookFormValidationSchemas';
+import { validationSchemas } from '../components/configs/HookFormValidationSchemas';
 
 export type HTMLInputElementAutoComplete = 'off' | 'on';
 
@@ -134,10 +134,6 @@ export interface FieldType {
    */
   placeholder?: string;
   /**
-   * Should the required label be displayed?
-   */
-  required?: boolean;
-  /**
    * Should a reset button be displayed inline?
    */
   resetButton?: boolean;
@@ -196,6 +192,10 @@ export interface FieldType {
     | 'text'
     | 'textarea';
 }
+
+export type ModifiedFieldType = FieldType & {
+  optional: boolean;
+};
 
 export interface OptionType {
   disabled?: boolean;

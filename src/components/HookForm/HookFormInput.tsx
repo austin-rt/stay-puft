@@ -20,8 +20,9 @@ import {
   FieldsType,
   FieldType,
   FieldValidationMethodType,
+  ModifiedFieldType,
 } from '../../types';
-import { passwordsWithValidator } from './HookFormValidationSchemas';
+import { passwordsWithValidator } from '../configs/consts';
 
 export interface HookFormInputProps {
   /**
@@ -140,7 +141,7 @@ const HookFormInput = ({
   };
 
   // set/evaluate some default values
-  const fld = {
+  const fld: ModifiedFieldType = {
     ...field,
     type:
       field.type ||
@@ -153,6 +154,7 @@ const HookFormInput = ({
       (field.name.toLowerCase().includes('terms') && 'checkbox') ||
       'text',
     autoComplete: mapAutoComplete(field.name) || 'off',
+    optional: field?.optional || field?.isToggle || false,
   };
 
   const throwError = (message: string) => {
@@ -174,7 +176,7 @@ const HookFormInput = ({
     'captcha',
   ];
 
-  if (fld.name === 'captcha' || fld.type === 'captcha') return <></>;
+  if (fld.name === 'captcha' || fld?.type === 'captcha') return <></>;
   return (
     <div className="relative">
       {fld.name === 'state' && (
@@ -189,13 +191,13 @@ const HookFormInput = ({
             handleOnChange(e);
           }}
           onFocus={fld?.onFocus as (e: FocusEvent<HTMLSelectElement>) => void}
+          optional={fld.optional}
           register={register}
           title={fld.title}
           validation={validation}
-          required={fld.required}
         />
       )}
-      {fld.type === 'textarea' && (
+      {fld?.type === 'textarea' && (
         <HookFormTextArea
           autoComplete={fld.autoComplete}
           autoCorrect={fld.autoCorrect || 'off'}
@@ -218,14 +220,12 @@ const HookFormInput = ({
           optional={fld.optional}
           placeholder={fld.placeholder}
           register={register}
-          required={fld.required}
           spellCheck={fld.spellCheck || false}
           title={fld.title}
           validation={validation}
-          // setValueAs={fld?.setValueAs}
         />
       )}
-      {fld.type === 'radio' &&
+      {fld?.type === 'radio' &&
         (fld.options ? (
           <HookFormRadio
             disabled={fld?.disabled}
@@ -240,7 +240,6 @@ const HookFormInput = ({
             optional={fld.optional}
             options={fld.options}
             register={register}
-            required={fld.required}
             title={fld.title}
             validation={validation}
             verticalSpacing={spacing}
@@ -249,7 +248,7 @@ const HookFormInput = ({
           throwError('Radio field must have options')
         ))}
       {
-        fld.type === 'checkbox' && (
+        fld?.type === 'checkbox' && (
           <HookFormCheckbox
             checkTheme={fld.checkTheme}
             disabled={fld?.disabled}
@@ -264,7 +263,6 @@ const HookFormInput = ({
             onFocus={fld?.onFocus as (e: FocusEvent<HTMLInputElement>) => void}
             optional={fld?.optional}
             register={register}
-            required={fld?.required}
             theme={fld.theme}
             title={fld.title}
             titleTheme={fld.titleTheme}
@@ -273,7 +271,7 @@ const HookFormInput = ({
         )
         // )
       }
-      {fld.type === 'select' &&
+      {fld?.type === 'select' &&
         (fld.options ? (
           <HookFormSelect
             disabled={fld?.disabled}
@@ -291,7 +289,6 @@ const HookFormInput = ({
             optional={fld?.optional}
             options={fld.options}
             register={register}
-            required={fld?.required}
             selectTheme={fld.selectTheme}
             theme={fld.theme}
             title={fld.title}
@@ -300,7 +297,7 @@ const HookFormInput = ({
         ) : (
           throwError('Select field must have options')
         ))}
-      {fld.type && !nonTextInputTypes.includes(fld.type) && (
+      {fld?.type && !nonTextInputTypes.includes(fld?.type) && (
         <HookFormTextInput
           autoComplete={fld.autoComplete}
           disabled={fld?.disabled}
@@ -320,19 +317,18 @@ const HookFormInput = ({
           optional={fld?.optional}
           placeholder={errors[fld.name]?.message ? '' : fld.placeholder}
           register={register}
-          required={fld?.required}
           resetButton={fld.resetButton}
           resetCallback={resetField}
           // setValueAs={fld?.setValueAs}
           showPasswordButton={fld?.showPasswordButton}
           submitIcon={fld.submitIcon}
           title={fld.title}
-          type={fld.type}
+          type={fld?.type}
           validation={validation}
         />
       )}
       {fld.tooltip && (
-        <div className="absolute right-0 bottom-0 -mb-6 border-2 rounded-b-lg border-_-neutrals-400 bg-_-neutrals-100">
+        <div className="absolute right-0 bottom-0 -mb-6 border rounded-b-lg border-_-neutrals-400 bg-white">
           {fld.tooltip}
         </div>
       )}

@@ -44,16 +44,12 @@ export interface HookFormCheckboxProps {
     /**
      * Should the optional subtext be displayed?
      */
-    optional?: boolean;
+    optional: boolean;
     /**
      * The register function from the `useForm` hook.
      * @see https://react-hook-form.com/docs/useform/register
      */
     register: Function;
-    /**
-     * Should the field be required?
-     */
-    required?: boolean;
     /**
      * A string of Tailwind classes to apply to the field's label.
      */
@@ -74,5 +70,5 @@ export interface HookFormCheckboxProps {
 /**
  * This is only to be consumed inside the HookForm component. You should not need to use this component directly. Did you mean to use `<Checkbox />` component?
  */
-declare const HookFormCheckbox: ({ checkTheme, dataAttr, disabled, error, id, inputTheme, name, onBlur, onChange, onFocus, optional, register, required, theme, title, titleTheme, validation, }: HookFormCheckboxProps) => React.JSX.Element;
+declare const HookFormCheckbox: ({ checkTheme, disabled, error, id, inputTheme, name, onBlur, onChange, onFocus, optional, register, theme, title, titleTheme, validation, }: HookFormCheckboxProps) => React.JSX.Element;
 export default HookFormCheckbox;

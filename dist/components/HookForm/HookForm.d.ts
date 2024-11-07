@@ -1,15 +1,8 @@
 import React, { ReactNode } from 'react';
-import { ButtonProps } from '../slimer/Button';
+import { ButtonProps } from '../Common/Button';
 import { SubmitErrorHandler, SubmitHandler, UseFormProps } from 'react-hook-form';
 import { FieldNamesType, FieldsType, FieldType, FieldValidationMethodType } from '../../types';
 export interface HookFormProps {
-    /**
-     * Should the submit button be disabled?
-     */
-    disableForm?: boolean;
-    /**
-     * Should the handleSubmit callback run on blur?
-     */
     callbackOnBlur?: boolean;
     /**
      * Should the form collect all errors or only the first one?
@@ -17,6 +10,13 @@ export interface HookFormProps {
      * @see https://react-hook-form.com/docs/useform#criteriaMode
      * */
     criteriaMode?: UseFormProps['criteriaMode'];
+    /**
+     * Should the form be disabled?
+     */
+    disableForm?: boolean;
+    /**
+     * Should the handleSubmit callback run on blur?
+     */
     /**
      * The delay for error messages
      * @default 500
@@ -156,7 +156,7 @@ export interface HookFormProps {
      * The title for the submit button
      * @default 'Submit'
      * */
-    submitButtonTitle?: string;
+    submitButtonTitle?: string | ReactNode;
     /**
      * The variant for the submit button
      * @default 'primary'

@@ -40,7 +40,7 @@ export interface SelectProps {
     /**
      * Should the optional subtext be displayed?
      */
-    optional?: boolean;
+    optional: boolean;
     /**
      * The options to display in the select dropdown.
      */
@@ -50,10 +50,6 @@ export interface SelectProps {
      * @see https://react-hook-form.com/docs/useform/register
      */
     register: Function;
-    /**
-     * Should the field be required
-     */
-    required?: boolean;
     /**
      * A string of Tailwind classes to apply to the `select` tag.
      */
@@ -74,5 +70,5 @@ export interface SelectProps {
 /**
  * This is only to be consumed inside the HookForm component. You should not need to use this component directly. Did you mean to use `<TextInput />` component?
  */
-declare const HookFormSelect: ({ disabled, error, formId, id, labelTheme, name, onBlur, onChange, onFocus, optional, options, register, required, selectTheme, theme, title, validation, }: SelectProps) => React.JSX.Element;
+declare const HookFormSelect: ({ disabled, error, formId, id, labelTheme, name, onBlur, onChange, onFocus, optional, options, register, selectTheme, theme, title, validation, }: SelectProps) => React.JSX.Element;
 export default HookFormSelect;

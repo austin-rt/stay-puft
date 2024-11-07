@@ -1,32 +1,34 @@
 import React, { useState, } from 'react';
-import Button from '../slimer/Button';
-import InputError from '../slimer/InputError';
+import Button from '../Common/Button';
+import InputError from '../Common/InputError';
 import UseMaskPhone from '../utils/maskPhone';
-import { errorMessages, passwordsWithValidator, } from './HookFormValidationSchemas';
+import { errorMessages, passwordsWithValidator } from '../configs/consts';
 import { toLowerCaseWithSpaces } from '../utils/toLowerCaseWithSpaces';
+import ReqOptIndicator from '../Common/ReqOptIndicator';
 /**
  * This is only to be consumed inside the HookForm component. You should not need to use this component directly. Did you mean to use `<TextInput />` component?
  */
-const HookFormTextInput = ({ ariaDescribedby, arialabel, autoComplete, autoCorrect = false, baseTheme = '', buttonRounded, buttonSize, buttonTheme, buttonVariant = 'default', disabled, error = '', id = '', inputTheme, labelTheme, name, onBlur, onChange, onFocus, onKeyDown, onKeyUp, optional, placeholder, register, required, resetButton = false, resetCallback, 
+const HookFormTextInput = ({ ariaDescribedby, arialabel, autoComplete, autoCorrect = false, baseTheme = '', buttonRounded, buttonSize, buttonTheme, buttonVariant = 'default', disabled, error = '', id = '', inputTheme, labelTheme, name, onBlur, onChange, onFocus, onKeyDown, onKeyUp, optional, placeholder, register, resetButton = false, resetCallback, 
 // setValueAs,
 showPasswordButton = true, size = 50, submitIcon, theme, title = '', type = 'text', validation, criteriaMode, }) => {
-    const [inputType, inputTypeSetter] = useState(((type.toLowerCase().includes('password') ||
-        name.toLowerCase().includes('password')) &&
+    var _a, _b, _c, _d, _f, _g, _h;
+    const [inputType, inputTypeSetter] = useState(((((_a = type === null || type === void 0 ? void 0 : type.toLowerCase()) === null || _a === void 0 ? void 0 : _a.includes('password')) ||
+        ((_b = name === null || name === void 0 ? void 0 : name.toLowerCase()) === null || _b === void 0 ? void 0 : _b.includes('password'))) &&
         'password') ||
-        ((type.toLowerCase().includes('number') ||
-            name.toLowerCase().includes('number') ||
-            name.toLowerCase() === 'zipcode' ||
-            name.toLowerCase().includes('phone')) &&
+        ((((_c = type === null || type === void 0 ? void 0 : type.toLowerCase()) === null || _c === void 0 ? void 0 : _c.includes('number')) ||
+            ((_d = name === null || name === void 0 ? void 0 : name.toLowerCase()) === null || _d === void 0 ? void 0 : _d.includes('number')) ||
+            (name === null || name === void 0 ? void 0 : name.toLowerCase()) === 'zipcode' ||
+            ((_f = name === null || name === void 0 ? void 0 : name.toLowerCase()) === null || _f === void 0 ? void 0 : _f.includes('phone'))) &&
             'tel') ||
-        ((name.toLowerCase().includes('email') ||
-            type.toLowerCase().includes('email')) &&
+        ((((_g = name === null || name === void 0 ? void 0 : name.toLowerCase()) === null || _g === void 0 ? void 0 : _g.includes('email')) ||
+            ((_h = type === null || type === void 0 ? void 0 : type.toLowerCase()) === null || _h === void 0 ? void 0 : _h.includes('email'))) &&
             'email') ||
         type);
     const passwordErrorValues = Object.values(errorMessages.password).filter((value) => value !== errorMessages.password.sameAsCurrent);
-    return (React.createElement("section", { "data-c": "puft--HookFormTextInput", className: `${baseTheme} relative ${name === 'honeypot' && 'sr-only'}` },
+    return (React.createElement("section", { className: `${baseTheme} relative ${name === 'honeypot' && 'sr-only'}` },
         React.createElement("div", { className: "w-full" },
             React.createElement("div", { className: `relative flex items-center hover:border-_-misc-selectedMedium active:border-_-misc-selectedDark focus-within:border-_-misc-selectedDark hover:bg-white z-99 ${theme} border group ${error !== '' ? 'border-_-states-error' : 'border-_-neutrals-400'}` },
-                React.createElement("input", Object.assign({ autoComplete: autoComplete, autoCorrect: autoCorrect ? 'on' : 'off', className: `peer inputClass placeholder:text-_-neutrals-900 bg-white active:border-none border-slate-300 h-11 px-2 focus:drop-shadow-lg focus:rounded-none focus:outline-none focus:border-black focus:ring-black w-full ${inputTheme}`, id: id, placeholder: placeholder, size: size, type: inputType, "aria-invalid": error !== '' ? true : undefined, "aria-label": arialabel, "aria-describedby": ariaDescribedby, onFocus: (e) => {
+                React.createElement("input", Object.assign({ autoComplete: autoComplete, autoCorrect: autoCorrect ? 'on' : 'off', className: `peer placeholder:text-_-neutrals-900 bg-white active:border-none border-slate-300 h-11 px-2 focus:drop-shadow-lg focus:rounded-none focus:outline-none focus:border-black focus:ring-black w-full ${inputTheme}`, id: id, placeholder: placeholder, size: size, type: inputType, "aria-invalid": error !== '' ? true : undefined, "aria-label": arialabel, "aria-describedby": ariaDescribedby, onFocus: (e) => {
                         if (onFocus)
                             onFocus(e);
                     }, onKeyUp: (e) => {
@@ -37,7 +39,7 @@ showPasswordButton = true, size = 50, submitIcon, theme, title = '', type = 'tex
                             onKeyDown(e);
                     } }, register(name, {
                     required: {
-                        value: validation === 'requiredOnly' && required,
+                        value: validation === 'requiredOnly' && !optional,
                         message: `Please include a ${toLowerCaseWithSpaces(name)}`,
                     },
                     disabled,
@@ -63,11 +65,7 @@ showPasswordButton = true, size = 50, submitIcon, theme, title = '', type = 'tex
                 }))),
                 React.createElement("label", { className: `transition-all absolute left-2 leading-tight -top-2 peer-placeholder-shown:top-3 bg-white font-bold text-xs peer-placeholder-shown:text-gray-600 peer-placeholder-shown:font-normal peer-placeholder-shown:text-[16px] group-focus-within:font-bold peer-focus-within:text-_-states-infoDark peer-focus-within:-top-2 peer-focus-within:font-bold peer-focus-within:text-xs ${title !== '' ? 'bg-white px-1' : ''} z-[999] ${labelTheme}`, htmlFor: id },
                     React.createElement("span", null, title),
-                    React.createElement("span", null,
-                        required === true &&
-                            (optional === false || optional === undefined) && (React.createElement("sup", { className: `text-_-states-error font-bold text-xs ml-0.5` }, '*')),
-                        optional === true &&
-                            (required === false || required === undefined) && (React.createElement("sup", { className: "text-[10px] text-_-neutrals-900 float-right relative top-[4px] ml-1" }, '(optional)')))),
+                    React.createElement(ReqOptIndicator, { optional: optional })),
                 React.createElement("div", { className: "flex" },
                     type.toLowerCase().includes('password') && showPasswordButton && (React.createElement(Button, { disabled: disabled, variant: buttonVariant, ghost: true, callback: () => {
                             inputTypeSetter(inputType === 'password' ? 'text' : 'password');

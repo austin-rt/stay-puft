@@ -5,10 +5,11 @@ import React, {
   ReactNode,
 } from 'react';
 
-import InputError from '../slimer/InputError';
+import InputError from '../Common/InputError';
 
 import { FieldNamesType, FieldValidationMethodType } from '../../types';
 import { toLowerCaseWithSpaces } from '../utils/toLowerCaseWithSpaces';
+import ReqOptIndicator from '../Common/ReqOptIndicator';
 
 export interface HookFormTextAreaProps {
   /**
@@ -70,7 +71,7 @@ export interface HookFormTextAreaProps {
   /**
    * Should the optional subtext be displayed?
    */
-  optional?: boolean;
+  optional: boolean;
   /**
    * The placeholder text to display in the field.
    */
@@ -80,10 +81,6 @@ export interface HookFormTextAreaProps {
    * @see https://react-hook-form.com/docs/useform/register
    */
   register: Function;
-  /**
-   * Should the field be required?
-   */
-  required?: boolean;
   /**
    * The number of rows to display in the textarea.
    */
@@ -131,7 +128,6 @@ const HookFormTextArea = ({
   optional,
   placeholder,
   register,
-  required,
   rows = 2,
   spellCheck = false,
   // setValueAs,
@@ -139,7 +135,7 @@ const HookFormTextArea = ({
   title,
   validation,
 }: HookFormTextAreaProps) => (
-  <section data-c="puft--HookFormTextArea" className="relative group">
+  <section className="relative group">
     <div className="w-full">
       <div
         className={`relative  hover:bg-white ${theme} border ${
@@ -153,22 +149,7 @@ const HookFormTextArea = ({
           {title && (
             <span className="transition-all inline-block h-1 font-bold text-xs text-md group-focus-within:text-_-misc-selectedDark">
               {title}
-              <span>
-                {required === true &&
-                  (optional === false || optional === undefined) && (
-                    <sup
-                      className={`text-_-states-error font-bold text-[smaller] ml-0.5`}
-                    >
-                      {'*'}
-                    </sup>
-                  )}
-                {optional === true &&
-                  (required === false || required === undefined) && (
-                    <sup className="text-[10px] text-_-neutrals-900 float-right relative top-[4px] ml-1">
-                      {'(optional)'}
-                    </sup>
-                  )}
-              </span>
+              <ReqOptIndicator optional={optional} />
             </span>
           )}
         </label>
@@ -193,7 +174,7 @@ const HookFormTextArea = ({
           }
           {...register(name, {
             required: {
-              value: validation === 'requiredOnly' && required,
+              value: validation === 'requiredOnly' && !optional,
               message: `Please include a ${toLowerCaseWithSpaces(name)}`,
             },
             disabled,

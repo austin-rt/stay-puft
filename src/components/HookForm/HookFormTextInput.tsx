@@ -5,18 +5,16 @@ import React, {
   KeyboardEvent,
   ReactNode,
 } from 'react';
-import Button from '../slimer/Button';
-import InputError from '../slimer/InputError';
+import Button from '../Common/Button';
+import InputError from '../Common/InputError';
 import UseMaskPhone from '../utils/maskPhone';
-import { ButtonProps } from '../slimer/Button';
+import { ButtonProps } from '../Common/Button';
 import { UseFormProps } from 'react-hook-form';
 
 import { FieldNamesType, FieldValidationMethodType } from '../../types';
-import {
-  errorMessages,
-  passwordsWithValidator,
-} from './HookFormValidationSchemas';
+import { errorMessages, passwordsWithValidator } from '../configs/consts';
 import { toLowerCaseWithSpaces } from '../utils/toLowerCaseWithSpaces';
+import ReqOptIndicator from '../Common/ReqOptIndicator';
 
 export interface HookFormTextInputProps {
   ariaDescribedby?: string;
@@ -40,10 +38,9 @@ export interface HookFormTextInputProps {
   onFocus?: (e: FocusEvent<HTMLInputElement>) => void;
   onKeyDown?: (e: KeyboardEvent<HTMLInputElement>) => void;
   onKeyUp?: (e: KeyboardEvent<HTMLInputElement>) => void;
-  optional?: boolean;
+  optional: boolean;
   placeholder?: string;
   register: Function;
-  required?: boolean;
   resetButton?: boolean;
   resetCallback?: Function;
   /**
@@ -87,7 +84,6 @@ const HookFormTextInput = ({
   optional,
   placeholder,
   register,
-  required,
   resetButton = false,
   resetCallback,
   // setValueAs,
@@ -101,16 +97,16 @@ const HookFormTextInput = ({
   criteriaMode,
 }: HookFormTextInputProps) => {
   const [inputType, inputTypeSetter] = useState(
-    ((type.toLowerCase().includes('password') ||
-      name.toLowerCase().includes('password')) &&
+    ((type?.toLowerCase()?.includes('password') ||
+      name?.toLowerCase()?.includes('password')) &&
       'password') ||
-      ((type.toLowerCase().includes('number') ||
-        name.toLowerCase().includes('number') ||
-        name.toLowerCase() === 'zipcode' ||
-        name.toLowerCase().includes('phone')) &&
+      ((type?.toLowerCase()?.includes('number') ||
+        name?.toLowerCase()?.includes('number') ||
+        name?.toLowerCase() === 'zipcode' ||
+        name?.toLowerCase()?.includes('phone')) &&
         'tel') ||
-      ((name.toLowerCase().includes('email') ||
-        type.toLowerCase().includes('email')) &&
+      ((name?.toLowerCase()?.includes('email') ||
+        type?.toLowerCase()?.includes('email')) &&
         'email') ||
       type
   );
@@ -121,7 +117,6 @@ const HookFormTextInput = ({
 
   return (
     <section
-      data-c="puft--HookFormTextInput"
       className={`${baseTheme} relative ${name === 'honeypot' && 'sr-only'}`}
     >
       <div className="w-full">
@@ -133,7 +128,7 @@ const HookFormTextInput = ({
           <input
             autoComplete={autoComplete}
             autoCorrect={autoCorrect ? 'on' : 'off'}
-            className={`peer inputClass placeholder:text-_-neutrals-900 bg-white active:border-none border-slate-300 h-11 px-2 focus:drop-shadow-lg focus:rounded-none focus:outline-none focus:border-black focus:ring-black w-full ${inputTheme}`}
+            className={`peer placeholder:text-_-neutrals-900 bg-white active:border-none border-slate-300 h-11 px-2 focus:drop-shadow-lg focus:rounded-none focus:outline-none focus:border-black focus:ring-black w-full ${inputTheme}`}
             id={id}
             placeholder={placeholder}
             size={size}
@@ -152,7 +147,7 @@ const HookFormTextInput = ({
             }}
             {...register(name, {
               required: {
-                value: validation === 'requiredOnly' && required,
+                value: validation === 'requiredOnly' && !optional,
                 message: `Please include a ${toLowerCaseWithSpaces(name)}`,
               },
               disabled,
@@ -182,22 +177,7 @@ const HookFormTextInput = ({
             htmlFor={id}
           >
             <span>{title}</span>
-            <span>
-              {required === true &&
-                (optional === false || optional === undefined) && (
-                  <sup
-                    className={`text-_-states-error font-bold text-xs ml-0.5`}
-                  >
-                    {'*'}
-                  </sup>
-                )}
-              {optional === true &&
-                (required === false || required === undefined) && (
-                  <sup className="text-[10px] text-_-neutrals-900 float-right relative top-[4px] ml-1">
-                    {'(optional)'}
-                  </sup>
-                )}
-            </span>
+            <ReqOptIndicator optional={optional} />
           </label>
           <div className="flex">
             {type.toLowerCase().includes('password') && showPasswordButton && (

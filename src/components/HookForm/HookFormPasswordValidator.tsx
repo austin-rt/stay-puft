@@ -3,8 +3,11 @@ import React from 'react';
 import { UseFormReturn } from 'react-hook-form';
 
 import { FieldNamesType, FieldsType } from '../../types';
-import { numberRegex, specialCharRegex } from './HookFormValidationSchemas';
-import { errorMessages } from './HookFormValidationSchemas';
+import {
+  numberRegex,
+  specialCharRegex,
+} from '../configs/HookFormValidationSchemas';
+import { errorMessages } from '../configs/consts';
 
 export interface HookFormPasswordValidatorProps {
   dirtyFields: UseFormReturn<FieldsType>['formState']['dirtyFields'];

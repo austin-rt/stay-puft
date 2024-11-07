@@ -2,7 +2,7 @@ import React, { ChangeEvent, FocusEvent, ReactNode } from 'react';
 
 import HookFormSelect from './HookFormSelect';
 import { FieldNamesType, FieldValidationMethodType } from '../../types';
-import { states } from './HookFormValidationSchemas';
+import { states } from '../configs/consts';
 
 export interface HookFormStateDropDownProps {
   /**
@@ -44,16 +44,12 @@ export interface HookFormStateDropDownProps {
   /**
    * Should the optional subtext be displayed?
    */
-  optional?: boolean;
+  optional: boolean;
   /**
    * The register function from the `useForm` hook.
    * @see https://react-hook-form.com/docs/useform/register
    */
   register: Function;
-  /**
-   * Should the field be required
-   */
-  required?: boolean;
   /**
    * A string of Tailwind classes to apply to the `select` tag.
    */
@@ -86,7 +82,6 @@ const HookFormStateDropDown = ({
   onFocus,
   optional,
   register,
-  required,
   selectTheme,
   theme,
   title,
@@ -106,7 +101,6 @@ const HookFormStateDropDown = ({
         optional={optional}
         options={states}
         register={register}
-        required={required}
         selectTheme={selectTheme}
         theme={theme}
         title={title || 'State'}

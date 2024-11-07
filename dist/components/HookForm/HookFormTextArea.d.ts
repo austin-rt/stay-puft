@@ -60,7 +60,7 @@ export interface HookFormTextAreaProps {
     /**
      * Should the optional subtext be displayed?
      */
-    optional?: boolean;
+    optional: boolean;
     /**
      * The placeholder text to display in the field.
      */
@@ -70,10 +70,6 @@ export interface HookFormTextAreaProps {
      * @see https://react-hook-form.com/docs/useform/register
      */
     register: Function;
-    /**
-     * Should the field be required?
-     */
-    required?: boolean;
     /**
      * The number of rows to display in the textarea.
      */
@@ -101,5 +97,5 @@ export interface HookFormTextAreaProps {
 /**
  * This is only to be consumed inside the HookForm component. You should not need to use this component directly. Did you mean to use `<TextArea />` component?
  */
-declare const HookFormTextArea: ({ ariaDescribedby, autoComplete, autoCorrect, disabled, error, id, inputTheme, labelTheme, name, onBlur, onChange, onFocus, onKeyDown, onKeyUp, optional, placeholder, register, required, rows, spellCheck, theme, title, validation, }: HookFormTextAreaProps) => React.JSX.Element;
+declare const HookFormTextArea: ({ ariaDescribedby, autoComplete, autoCorrect, disabled, error, id, inputTheme, labelTheme, name, onBlur, onChange, onFocus, onKeyDown, onKeyUp, optional, placeholder, register, rows, spellCheck, theme, title, validation, }: HookFormTextAreaProps) => React.JSX.Element;
 export default HookFormTextArea;

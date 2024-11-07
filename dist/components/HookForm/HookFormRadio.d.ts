@@ -36,7 +36,7 @@ export interface HookFormRadioProps {
     /**
      * Should the optional subtext be displayed?
      */
-    optional?: boolean;
+    optional: boolean;
     /**
      * The options to display in the radio group.
      */
@@ -46,10 +46,6 @@ export interface HookFormRadioProps {
      * @see https://react-hook-form.com/docs/useform/register
      */
     register: Function;
-    /**
-     * Should the field be required
-     */
-    required?: boolean;
     /**
      * Should the title be displayed?
      */
@@ -78,5 +74,5 @@ export interface HookFormRadioProps {
 /**
  * This is only to be consumed inside the HookForm component. You should not need to use this component directly. Did you mean to use `<Radio />` component?
  */
-declare const HookFormRadio: ({ ariaControls, ariaExpanded, disabled, error, name, onBlur, onChange, onFocus, optional, options, register, required, showTitle, checkSpacing, theme, title, validation, verticalSpacing, }: HookFormRadioProps) => React.JSX.Element;
+declare const HookFormRadio: ({ ariaControls, ariaExpanded, disabled, error, name, onBlur, onChange, onFocus, optional, options, register, showTitle, checkSpacing, theme, title, validation, verticalSpacing, }: HookFormRadioProps) => React.JSX.Element;
 export default HookFormRadio;

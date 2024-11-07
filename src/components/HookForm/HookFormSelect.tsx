@@ -1,6 +1,6 @@
 import React, { ChangeEvent, FocusEvent, ReactNode, useRef } from 'react';
 
-import InputError from '../slimer/InputError';
+import InputError from '../Common/InputError';
 
 import {
   FieldNamesType,
@@ -8,6 +8,7 @@ import {
   OptionType,
 } from '../../types';
 import { toLowerCaseWithSpaces } from '../utils/toLowerCaseWithSpaces';
+import ReqOptIndicator from '../Common/ReqOptIndicator';
 
 export interface SelectProps {
   /**
@@ -49,7 +50,7 @@ export interface SelectProps {
   /**
    * Should the optional subtext be displayed?
    */
-  optional?: boolean;
+  optional: boolean;
   /**
    * The options to display in the select dropdown.
    */
@@ -59,10 +60,6 @@ export interface SelectProps {
    * @see https://react-hook-form.com/docs/useform/register
    */
   register: Function;
-  /**
-   * Should the field be required
-   */
-  required?: boolean;
   /**
    * A string of Tailwind classes to apply to the `select` tag.
    */
@@ -97,7 +94,6 @@ const HookFormSelect = ({
   optional,
   options,
   register,
-  required,
   selectTheme,
   theme,
   title,
@@ -107,39 +103,22 @@ const HookFormSelect = ({
   const wrapperRef = useRef<HTMLDivElement>(null);
 
   return (
-    <section data-c="puft--Select" className="relative">
+    <section className="relative">
       <div className="w-full">
         <div
           ref={wrapperRef}
-          className={`relative transition-all border  bg-white rounded-md hover:border-_-misc-selectedMedium focus-within:border-_-misc-selectedDark group ${
-            error ? 'border-_-states-error' : 'border-black'
-          } ${theme}`}
+          className={`relative flex items-center hover:border-_-misc-selectedMedium active:border-_-misc-selectedDark focus-within:border-_-misc-selectedDark hover:bg-white z-99 ${theme} border group ${
+            error !== '' ? 'border-_-states-error' : 'border-_-neutrals-400'
+          }`}
         >
           <label
-            className={`absolute leading-tight -top-2.5 left-4 justify-center ${
+            className={`transition-all absolute left-2 leading-tight -top-2 peer-placeholder-shown:top-3 bg-white font-bold text-xs peer-placeholder-shown:text-gray-600 peer-placeholder-shown:font-normal peer-placeholder-shown:text-[16px] group-focus-within:font-bold peer-focus-within:text-_-states-infoDark peer-focus-within:-top-2 peer-focus-within:font-bold peer-focus-within:text-xs ${
               title !== '' ? 'bg-white px-1' : ''
-            } ${labelTheme}`}
+            } z-[999] ${labelTheme}`}
             htmlFor={id}
           >
-            <span className="transition-all inline-block h-1 group-hover:font-bold group-hover-within:text-sm text-xs">
-              {title}
-            </span>
-            <span>
-              {required === true &&
-                (optional === false || optional === undefined) && (
-                  <span
-                    className={`text-_-states-error font-bold text-[smaller] ml-0.5`}
-                  >
-                    {'*'}
-                  </span>
-                )}
-              {optional === true &&
-                (required === false || required === undefined) && (
-                  <span className="text-[10px] text-_-neutrals-900 float-right relative top-[4px] ml-1">
-                    {'(optional)'}
-                  </span>
-                )}
-            </span>
+            <span>{title}</span>
+            <ReqOptIndicator optional={optional} />
           </label>
           <div
             className={`flex justify-between items-center bg-transparent h-11 px-2 text-_-neutrals-900 group-focus:drop-shadow-lg group-focus-within:text-black w-full ${selectTheme}`}
@@ -159,7 +138,7 @@ const HookFormSelect = ({
               }}
               {...register(name, {
                 required: {
-                  value: validation === 'requiredOnly' && required,
+                  value: validation === 'requiredOnly' && !optional,
                   message: `Please choose a ${toLowerCaseWithSpaces(name)}`,
                 },
                 disabled,

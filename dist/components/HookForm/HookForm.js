@@ -1,13 +1,13 @@
 import { __awaiter } from "tslib";
 import React, { useEffect, useState } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
-import Alert from '../slimer/Alert';
-import Button from '../slimer/Button';
+import Alert from '../Common/Alert';
+import Button from '../Common/Button';
 import ReCAPTCHA from 'react-google-recaptcha-enterprise';
 import { Controller, useForm, } from 'react-hook-form';
 import { z } from 'zod';
 import HookFormInput from './HookFormInput';
-import { validationSchemas } from './HookFormValidationSchemas';
+import { validationSchemas } from '../configs/HookFormValidationSchemas';
 import { toLowerCaseWithSpaces } from '../utils/toLowerCaseWithSpaces';
 import scrollToElement from '../utils/scrollToElement';
 /**
@@ -37,12 +37,12 @@ const HookForm = ({ callbackOnBlur, criteriaMode = 'all', delayError = 500, disc
         return 0;
     });
     // set default values
-    const defaultValues = Object.assign(Object.assign({}, sortedFields.reduce((acc, f) => (Object.assign(Object.assign({}, acc), { [f.name]: f.defaultValue })), {})), { captcha: undefined });
+    const defaultValues = Object.assign(Object.assign({}, sortedFields.reduce((acc, f) => (Object.assign(Object.assign({}, acc), { [f.name]: f.defaultValue || '' })), {})), { captcha: undefined });
     // fetch validation schema
-    const schema = z.object(Object.assign({}, sortedFields.reduce((acc, f) => (Object.assign(Object.assign({}, acc), { [f.name]: validationSchemas[f.name] })), {})));
-    const { 
-    // clearErrors,
-    control, getValues, handleSubmit, register, reset, resetField, setError, setValue, unregister, watch, formState: { dirtyFields, disabled, errors, 
+    const schema = z.object(Object.assign({}, sortedFields.reduce((acc, f) => (Object.assign(Object.assign({}, acc), { [f.name]: !f.optional
+            ? validationSchemas[f.name]
+            : validationSchemas[f.name].optional().nullish().or(z.literal('')) })), {})));
+    const { clearErrors, control, getValues, handleSubmit, register, reset, resetField, setError, setValue, unregister, watch, formState: { dirtyFields, disabled, errors, 
     // isDirty,
     // isSubmitSuccessful,
     isValid, touchedFields, submitCount, }, } = useForm({
@@ -147,6 +147,7 @@ const HookForm = ({ callbackOnBlur, criteriaMode = 'all', delayError = 500, disc
             });
         }
         else {
+            clearErrors('root');
             if (submitCount > 0 && isValid) {
                 if (showSuccessMessage && successMessage)
                     setSubmitSuccessMessage(successMessage);
@@ -161,7 +162,7 @@ const HookForm = ({ callbackOnBlur, criteriaMode = 'all', delayError = 500, disc
             }
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [submitCount]);
+    }, [submitCount, errorMessage]);
     return showForm === false ? (React.createElement("div", { id: `HookForm--${id}--empty`, className: "hidden" })) : (React.createElement("form", { id: `HookForm--${id}`, onSubmit: handleSubmit(submitHandler, onError), onBlur: callbackOnBlur === true && isValid === true
             ? handleSubmit(submitHandler, onError)
             : undefined, noValidate: true, className: ` bg-white ${theme || ''}`, "aria-hidden": (theme === null || theme === void 0 ? void 0 : theme.includes('hidden')) ? true : undefined },
@@ -190,8 +191,8 @@ const HookForm = ({ callbackOnBlur, criteriaMode = 'all', delayError = 500, disc
                     React.createElement("span", null, prettifyErrorFields()))),
                 showSuccessMessage && submitSuccessMessage && (React.createElement(Alert, { close: false, callback: () => null, variant: "success", id: successAlertId },
                     React.createElement("span", null, submitSuccessMessage))),
-                sortedFields.some((field) => field.required) &&
-                    !hideRequiredLegend && (React.createElement("div", { className: `w-full text-xxs flex items-center justify-end -mb-3` },
+                (sortedFields.every((field) => field === null || field === void 0 ? void 0 : field.optional) ||
+                    !hideRequiredLegend) && (React.createElement("div", { className: `w-full text-xxs flex items-center justify-end -mb-3` },
                     React.createElement("span", { className: "text-_-secondary-0 text-base" }, "*"),
                     React.createElement("span", null, "indicates a required field")))),
             React.createElement("div", { className: "flex flex-col gap-12 mt-2" },

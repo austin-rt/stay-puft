@@ -25,7 +25,6 @@ const Alert = ({
   return (
     <section
       id={id}
-      data-c="slmr--Alert"
       className={`flex justify-between py-2.5 px-4 border-l-4 font-semibold ${alerts[variant]} ${theme}`}
     >
       {icon && (

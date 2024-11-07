@@ -40,16 +40,12 @@ export interface HookFormStateDropDownProps {
     /**
      * Should the optional subtext be displayed?
      */
-    optional?: boolean;
+    optional: boolean;
     /**
      * The register function from the `useForm` hook.
      * @see https://react-hook-form.com/docs/useform/register
      */
     register: Function;
-    /**
-     * Should the field be required
-     */
-    required?: boolean;
     /**
      * A string of Tailwind classes to apply to the `select` tag.
      */
@@ -70,5 +66,5 @@ export interface HookFormStateDropDownProps {
 /**
  * This is only to be consumed inside the HookForm component. You should not need to use this component directly. Did you mean to use `<StateDropdown />` component?
  */
-declare const HookFormStateDropDown: ({ disabled, error, formId, labelTheme, name, onBlur, onChange, onFocus, optional, register, required, selectTheme, theme, title, validation, }: HookFormStateDropDownProps) => React.JSX.Element;
+declare const HookFormStateDropDown: ({ disabled, error, formId, labelTheme, name, onBlur, onChange, onFocus, optional, register, selectTheme, theme, title, validation, }: HookFormStateDropDownProps) => React.JSX.Element;
 export default HookFormStateDropDown;

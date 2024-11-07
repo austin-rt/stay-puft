@@ -1,6 +1,6 @@
 import React from 'react';
-import { numberRegex, specialCharRegex } from './HookFormValidationSchemas';
-import { errorMessages } from './HookFormValidationSchemas';
+import { numberRegex, specialCharRegex, } from '../configs/HookFormValidationSchemas';
+import { errorMessages } from '../configs/consts';
 /**
  * This is only to be consumed inside the HookForm component. You should not need to use this component directly. Did you mean to use `<PasswordValidator />` component?
  */

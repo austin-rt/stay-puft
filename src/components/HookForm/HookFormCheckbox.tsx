@@ -1,8 +1,9 @@
 import React, { ChangeEvent, FocusEvent, ReactNode } from 'react';
 
-import InputError from '../slimer/InputError';
+import InputError from '../Common/InputError';
 
 import { FieldNamesType, FieldValidationMethodType } from '../../types';
+import ReqOptIndicator from '../Common/ReqOptIndicator';
 
 export interface HookFormCheckboxProps {
   /**
@@ -48,16 +49,12 @@ export interface HookFormCheckboxProps {
   /**
    * Should the optional subtext be displayed?
    */
-  optional?: boolean;
+  optional: boolean;
   /**
    * The register function from the `useForm` hook.
    * @see https://react-hook-form.com/docs/useform/register
    */
   register: Function;
-  /**
-   * Should the field be required?
-   */
-  required?: boolean;
   /**
    * A string of Tailwind classes to apply to the field's label.
    */
@@ -81,7 +78,6 @@ export interface HookFormCheckboxProps {
  */
 const HookFormCheckbox = ({
   checkTheme = '',
-  dataAttr = '',
   disabled,
   error,
   id,
@@ -90,9 +86,8 @@ const HookFormCheckbox = ({
   onBlur,
   onChange,
   onFocus,
-  optional,
+  optional = false,
   register,
-  required,
   theme = '',
   title,
   titleTheme = '',
@@ -106,12 +101,11 @@ const HookFormCheckbox = ({
           ? 'border-_-states-error bg-_-states-errorLight hover:border-_-misc-selectedMedium hover:bg-white'
           : 'border-transparent'
       } ${theme}`}
-      data-c="puft--HookFormCheckbox"
     >
       <input
         {...register(name, {
           required: {
-            value: validation === 'requiredOnly' && required,
+            value: validation === 'requiredOnly' && !optional,
             message: 'Please accept',
           },
           disabled,
@@ -123,7 +117,6 @@ const HookFormCheckbox = ({
           },
         })}
         className="sr-only peer"
-        data-attr={dataAttr}
         type="checkbox"
         aria-invalid={error !== '' ? true : undefined}
         id={id}
@@ -145,22 +138,7 @@ const HookFormCheckbox = ({
           className={`peer-disabled:text-_-imperfect-400/40 group-hover:peer-disabled:text-_-imperfect-400/40 group-hover:peer-checked:peer-disabled:text-_-imperfect-400/40 pl-3 ${titleTheme}`}
         >
           {title}
-          <span>
-            {required === true &&
-              (optional === false || optional === undefined) && (
-                <span
-                  className={`text-_-states-error font-bold text-[smaller] ml-0.5`}
-                >
-                  {'*'}
-                </span>
-              )}
-            {optional === true &&
-              (required === false || required === undefined) && (
-                <span className="text-[10px] text-_-neutrals-900 float-right relative top-[4px] ml-1">
-                  {'(optional)'}
-                </span>
-              )}
-          </span>
+          <ReqOptIndicator optional={optional} />
         </span>
       )}
     </label>

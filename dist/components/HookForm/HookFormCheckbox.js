@@ -1,15 +1,16 @@
 import React from 'react';
-import InputError from '../slimer/InputError';
+import InputError from '../Common/InputError';
+import ReqOptIndicator from '../Common/ReqOptIndicator';
 /**
  * This is only to be consumed inside the HookForm component. You should not need to use this component directly. Did you mean to use `<Checkbox />` component?
  */
-const HookFormCheckbox = ({ checkTheme = '', dataAttr = '', disabled, error, id, inputTheme = '', name, onBlur, onChange, onFocus, optional, register, required, theme = '', title, titleTheme = '', validation, }) => (React.createElement(React.Fragment, null,
+const HookFormCheckbox = ({ checkTheme = '', disabled, error, id, inputTheme = '', name, onBlur, onChange, onFocus, optional = false, register, theme = '', title, titleTheme = '', validation, }) => (React.createElement(React.Fragment, null,
     React.createElement("label", { htmlFor: id, className: `flex items-center text-xs group rounded-md py-2 px-2 cursor-pointer border ${error
             ? 'border-_-states-error bg-_-states-errorLight hover:border-_-misc-selectedMedium hover:bg-white'
-            : 'border-transparent'} ${theme}`, "data-c": "puft--HookFormCheckbox" },
+            : 'border-transparent'} ${theme}` },
         React.createElement("input", Object.assign({}, register(name, {
             required: {
-                value: validation === 'requiredOnly' && required,
+                value: validation === 'requiredOnly' && !optional,
                 message: 'Please accept',
             },
             disabled,
@@ -21,7 +22,7 @@ const HookFormCheckbox = ({ checkTheme = '', dataAttr = '', disabled, error, id,
                 if (onBlur)
                     onBlur(e);
             },
-        }), { className: "sr-only peer", "data-attr": dataAttr, type: "checkbox", "aria-invalid": error !== '' ? true : undefined, id: id, onFocus: (e) => {
+        }), { className: "sr-only peer", type: "checkbox", "aria-invalid": error !== '' ? true : undefined, id: id, onFocus: (e) => {
                 if (onFocus)
                     onFocus(e);
             } })),
@@ -31,11 +32,7 @@ const HookFormCheckbox = ({ checkTheme = '', dataAttr = '', disabled, error, id,
             React.createElement("div", { className: `fa fa-check p-1 aspect-square ${checkTheme}` })),
         title && (React.createElement("span", { className: `peer-disabled:text-_-imperfect-400/40 group-hover:peer-disabled:text-_-imperfect-400/40 group-hover:peer-checked:peer-disabled:text-_-imperfect-400/40 pl-3 ${titleTheme}` },
             title,
-            React.createElement("span", null,
-                required === true &&
-                    (optional === false || optional === undefined) && (React.createElement("span", { className: `text-_-states-error font-bold text-[smaller] ml-0.5` }, '*')),
-                optional === true &&
-                    (required === false || required === undefined) && (React.createElement("span", { className: "text-[10px] text-_-neutrals-900 float-right relative top-[4px] ml-1" }, '(optional)')))))),
+            React.createElement(ReqOptIndicator, { optional: optional })))),
     error && React.createElement(InputError, { theme: "sr-only", error: error })));
 export default HookFormCheckbox;
 //# sourceMappingURL=HookFormCheckbox.js.map

@@ -3,7 +3,7 @@ import { button } from '../configs/buttons';
 
 export interface ButtonProps {
   id?: string | undefined;
-  callback: any;
+  callback?: any;
   disabled?: boolean;
   loading?: boolean;
   loadingText?: string;
@@ -46,7 +46,6 @@ const Button = ({
 }: ButtonProps) => {
   return (
     <button
-      data-c="slmr--Button"
       id={id}
       type={type}
       disabled={loading || disabled}

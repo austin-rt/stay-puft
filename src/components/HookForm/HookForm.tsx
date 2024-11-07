@@ -1,8 +1,8 @@
 import React, { ReactNode, useEffect, useState } from 'react';
 
 import { zodResolver } from '@hookform/resolvers/zod';
-import Alert from '../slimer/Alert';
-import Button, { ButtonProps } from '../slimer/Button';
+import Alert from '../Common/Alert';
+import Button, { ButtonProps } from '../Common/Button';
 import ReCAPTCHA from 'react-google-recaptcha-enterprise';
 import {
   Controller,
@@ -21,18 +21,11 @@ import {
   FieldType,
   FieldValidationMethodType,
 } from '../../types';
-import { validationSchemas } from './HookFormValidationSchemas';
+import { validationSchemas } from '../configs/HookFormValidationSchemas';
 import { toLowerCaseWithSpaces } from '../utils/toLowerCaseWithSpaces';
 import scrollToElement from '../utils/scrollToElement';
 
 export interface HookFormProps {
-  /**
-   * Should the submit button be disabled?
-   */
-  disableForm?: boolean;
-  /**
-   * Should the handleSubmit callback run on blur?
-   */
   callbackOnBlur?: boolean;
   /**
    * Should the form collect all errors or only the first one?
@@ -40,6 +33,13 @@ export interface HookFormProps {
    * @see https://react-hook-form.com/docs/useform#criteriaMode
    * */
   criteriaMode?: UseFormProps['criteriaMode'];
+  /**
+   * Should the form be disabled?
+   */
+  disableForm?: boolean;
+  /**
+   * Should the handleSubmit callback run on blur?
+   */
   /**
    * The delay for error messages
    * @default 500
@@ -174,7 +174,7 @@ export interface HookFormProps {
    * The title for the submit button
    * @default 'Submit'
    * */
-  submitButtonTitle?: string;
+  submitButtonTitle?: string | ReactNode;
   /**
    * The variant for the submit button
    * @default 'primary'
@@ -271,7 +271,7 @@ const HookForm = ({
   // set default values
   const defaultValues = {
     ...sortedFields.reduce(
-      (acc, f) => ({ ...acc, [f.name]: f.defaultValue }),
+      (acc, f) => ({ ...acc, [f.name]: f.defaultValue || '' }),
       {}
     ),
     captcha: undefined,
@@ -282,14 +282,16 @@ const HookForm = ({
     ...sortedFields.reduce(
       (acc, f) => ({
         ...acc,
-        [f.name]: validationSchemas[f.name],
+        [f.name]: !f.optional
+          ? validationSchemas[f.name]
+          : validationSchemas[f.name].optional().nullish().or(z.literal('')),
       }),
       {}
     ),
   });
 
   const {
-    // clearErrors,
+    clearErrors,
     control,
     getValues,
     handleSubmit,
@@ -424,6 +426,7 @@ const HookForm = ({
         message: errorMessage,
       });
     } else {
+      clearErrors('root');
       if (submitCount > 0 && isValid) {
         if (showSuccessMessage && successMessage)
           setSubmitSuccessMessage(successMessage);
@@ -436,7 +439,7 @@ const HookForm = ({
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [submitCount]);
+  }, [submitCount, errorMessage]);
 
   return showForm === false ? (
     <div id={`HookForm--${id}--empty`} className="hidden" />
@@ -519,15 +522,15 @@ const HookForm = ({
             </Alert>
           )}
 
-          {sortedFields.some((field) => field.required) &&
-            !hideRequiredLegend && (
-              <div
-                className={`w-full text-xxs flex items-center justify-end -mb-3`}
-              >
-                <span className="text-_-secondary-0 text-base">*</span>
-                <span>indicates a required field</span>
-              </div>
-            )}
+          {(sortedFields.every((field) => field?.optional) ||
+            !hideRequiredLegend) && (
+            <div
+              className={`w-full text-xxs flex items-center justify-end -mb-3`}
+            >
+              <span className="text-_-secondary-0 text-base">*</span>
+              <span>indicates a required field</span>
+            </div>
+          )}
         </div>
         <div className="flex flex-col gap-12 mt-2">
           {sortedFields.map((field) => {
@@ -689,8 +692,6 @@ const HookForm = ({
             )}
             {submitButtonShow && (
               <>
-                {/* ignore button callback required prop */}
-                {/* @ts-ignore-next-line */}
                 <Button
                   disabled={disabled || disableForm}
                   ghost={submitButtonGhost}

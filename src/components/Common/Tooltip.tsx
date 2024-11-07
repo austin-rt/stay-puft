@@ -32,7 +32,7 @@ const Tooltip = ({
   showInfo = false,
   showOnHover = true,
   theme = 'cursor-pointer px-0.5 transition-all',
-  themeTooltip = `bg-white border  text-black px-3 py-2 inline-block rounded-md text-xs text-center shadow-md`,
+  themeTooltip = `bg-white border text-black px-3 py-2 inline-block rounded-md text-xs text-center shadow-md`,
   themeWrapper = ``,
   title,
   width = 'w-80',
@@ -55,7 +55,7 @@ const Tooltip = ({
         positionClassSetter('absolute top-0 mr-2 right-full');
         break;
       case 'top':
-        positionClassSetter('absolute bottom-full mb-2 -left-1/2');
+        positionClassSetter('absolute -bottom-5 mb-2 -left-2');
         break;
       default:
         positionClassSetter(
@@ -81,7 +81,6 @@ const Tooltip = ({
 
   return (
     <span
-      data-test="component-tooltip"
       id={`tooltip--${id}--container`}
       className={`slmr--tooltip cursor-pointer relative ${themeWrapper}`}
       ref={wrapperRef}
