@@ -13,6 +13,9 @@ export default {
   component: HookForm,
 };
 
+const captchaKey = process.env.CAPTCHA_KEY;
+console.log('xxx', captchaKey);
+
 const Template: Story<HookFormProps> = (args) => {
   const [showForm, setShowForm] = useState(true);
   const [errorMessage, setErrorMessage] = useState('');
@@ -320,7 +323,7 @@ WithCaptcha.args = {
       name: 'captcha',
       title: 'captcha',
       type: 'captcha',
-      captchaKey: process.env.CAPTCHA_KEY,
+      captchaKey: captchaKey,
     },
     {
       name: 'email',
