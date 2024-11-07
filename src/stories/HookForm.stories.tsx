@@ -320,7 +320,7 @@ WithCaptcha.args = {
       name: 'captcha',
       title: 'captcha',
       type: 'captcha',
-      captchaKey: '6LcZNT0pAAAAAFmcz2fIIqs1FGRywaPWCe2ESDec',
+      captchaKey: process.env.CAPTCHA_KEY,
     },
     {
       name: 'email',
