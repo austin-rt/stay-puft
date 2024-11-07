@@ -184,7 +184,57 @@ export interface HookFormProps {
     validation?: FieldValidationMethodType;
 }
 /**
- * This is a form component that uses react-hook-form with zod validation under the hood. The styling is dependant on Tailwindcss as well as some prebuilt components and tailwind variables from  the nwc-slimer library.
+ * <hr/>
+ * <br/>
+ * <center>
+ *  <img style="width: 75%" src="https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExb3k1YWNudGhnd2ZpbWN4bXJmMG42YWNmcTd5M3hydHVldnJ3bXVqNyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/3o72Fk2ZH8NJ6BNa8w/giphy.webp" />
+ * </center>
+ * <br/>
+ * Stay Puft Forms is a feature rich form component originally built for an e-commerce web app. The styling is dependant on Tailwindcss as well as some prebuilt components and Tailwind variables from  the `nwc-slimer` library. Due to ease of use regarding validation, the “package” is not a dedicated npm package. I decided to store it locally in our web app while ironing out all the bugs.
+ *
+ *<br/>
+ * # [Jump to Demo](#demo)
+ * <hr/>
+ * <br/>
+
+ * ## Features:
+ *  - Crafted with **simplicity** for a smooth developer experience.
+ *  - **Accessibility** is front and center — because everyone should be able to use your forms!
+ *  - Built on `react-hook-form` for easy input error handling right where you need it.
+ *  - Powered by `zod` to keep input validation rock-solid.
+ *  - Is developing and testing getting tedious? Use `fillValues` and a the `fillValuesCallback` props to auto-fill the form while developing.
+ *  - Clean, consistent styling with error messages that make sense.
+ *  - Google ReCAPTCHA integration for added security.
+ *  - Includes a `honeypot` field to stop spam in its tracks.
+ *
+ * ## Ease of Use
+ * Here's a side by side of the code our developers would have to write to implenent the same form with fewer features.
+ *<div style="width: 100%; display:flex; justify-content:space-evenly;">
+ *   <div>Before Puft Forms</div>
+ *   <div>After Puft Forms</div>
+ *  </div>
+ * <div
+ * style="width: 100%; height: 500px; display:flex; justify-content:space-around; overflow:hidden; margin-top:5px;">
+ * <iframe
+ *   src="https://carbon.now.sh/embed/NP6OdpSl2gFnT1RYPs8I"
+ *   style="width: 1024px; height: 500px; border:0; transform: scale(1); overflow-x:hidden; overflow-y:scroll;"
+ *   sandbox="allow-scripts allow-same-origin">
+ * </iframe>
+ * <iframe
+ *   src="https://carbon.now.sh/embed/XkAg5oqxhpKmAlMkCKAl"
+ *  style="width: 1024px; height: 500px; border:0; transform: scale(1); overflow-x:hidden; overflow-y:scroll;"
+ *  sandbox="allow-scripts allow-same-origin">
+ * </iframe>
+ * </div>
+ *
+ * ## Leverages:
+ * - `react-hook-form`
+ * - `zod`
+ * - `tailwindcss`
+ * - `react-google-recaptcha-enterprise`
+ *
+ * ## Demo
+ *
  * @see https://americanfreight.atlassian.net/wiki/spaces/AC/pages/2510028805/Hook+Forms+Component+Usage
  */
 declare const HookForm: ({ callbackOnBlur, criteriaMode, delayError, disclaimer, disableForm, errorMessage, fields, fillValues, fillValuesCallback, hideRequiredLegend, id, mode, onError, onSubmit, resetButtonCallback, resetButtonGhost, resetButtonShow, resetButtonTheme, resetButtonTitle, resetButtonVariant, resetOnSubmit, reValidateMode, shouldFocusError, showForm, showSuccessMessage, spacing, submitButtonGhost, submitButtonRounded, submitButtonShow, submitButtonTheme, submitButtonTitle, submitButtonVariant, successCallback, successMessage, title, theme, validation, }: HookFormProps) => React.JSX.Element;

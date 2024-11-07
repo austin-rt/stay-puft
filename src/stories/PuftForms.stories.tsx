@@ -330,7 +330,7 @@ export default meta;
 
 type Story = StoryObj<StoryProps>;
 
-export const Demo: Story = {
+export const StayPuftForms: Story = {
   args: {
     fields: [
       {
