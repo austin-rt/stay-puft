@@ -243,11 +243,7 @@ export const optionalEmail = z
     .optional()
     .or(z.literal(''));
 export const numberRegex = /\d/;
-export const passwordsWithValidator = [
-    'registerPassword',
-    'newPassword',
-    'loginPassword',
-];
+export const passwordsWithValidator = ['registerPassword', 'newPassword'];
 export const poBoxRegex = /^ *((#\d+)|((box|bin)[-. /\\]?\d+)|(.*p[ .]? ?(o|0)[-. /\\]? *-?((box|bin)|b|(#|n|num|number)?\d+))|(p(ost|ostal)? *(o(ff(ice)?)?)? *((box|bin)|b)? *(#|n|num|number)*\d+)|(p *-?\/?(o)? *-?box)|post office box|((box|bin)|b) *(#|n|num|number)? *\d+|(#|n|num|number) *\d+)/i;
 export const specialCharRegex = /[ !"#$%&'()*+,-./:;<=>?@[\\\]^_`{|}~]/;
 export const zipCodeRegex = /^\d{5}$/;

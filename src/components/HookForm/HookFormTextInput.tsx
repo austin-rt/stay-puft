@@ -212,7 +212,19 @@ const HookFormTextInput = ({
                 }}
                 ariaControls={id}
                 ariaExpanded={false}
-                title={`${inputType === 'password' ? 'Show' : 'Hide'}`}
+                title={
+                  inputType === 'password' ? (
+                    <span>
+                      <i className="fa-solid fa-eye text-xl mr-0.5" />
+                      <span className="sr-only">Show Password</span>
+                    </span>
+                  ) : (
+                    <span>
+                      <i className="fa-solid fa-eye-slash text-xl" />
+                      <span className="sr-only">Hide Password</span>
+                    </span>
+                  )
+                }
                 rounded={buttonRounded}
                 size={buttonSize}
                 theme={`bg-transparent hover:bg-trasparent text-xs text-_-neutrals-900 border-0 border-none ${buttonTheme}`}

@@ -6,7 +6,7 @@ export interface HookFormProps {
     /**
      * Should the submit button be disabled?
      */
-    disableSubmit?: boolean;
+    disableForm?: boolean;
     /**
      * Should the handleSubmit callback run on blur?
      */
@@ -187,5 +187,5 @@ export interface HookFormProps {
  * This is a form component that uses react-hook-form with zod validation under the hood. The styling is dependant on Tailwindcss as well as some prebuilt components and tailwind variables from  the nwc-slimer library.
  * @see https://americanfreight.atlassian.net/wiki/spaces/AC/pages/2510028805/Hook+Forms+Component+Usage
  */
-declare const HookForm: ({ callbackOnBlur, criteriaMode, delayError, disclaimer, disableSubmit, errorMessage, fields, fillValues, fillValuesCallback, hideRequiredLegend, id, mode, onError, onSubmit, resetButtonCallback, resetButtonGhost, resetButtonShow, resetButtonTheme, resetButtonTitle, resetButtonVariant, resetOnSubmit, reValidateMode, shouldFocusError, showForm, showSuccessMessage, spacing, submitButtonGhost, submitButtonRounded, submitButtonShow, submitButtonTheme, submitButtonTitle, submitButtonVariant, successCallback, successMessage, title, theme, validation, }: HookFormProps) => React.JSX.Element;
+declare const HookForm: ({ callbackOnBlur, criteriaMode, delayError, disclaimer, disableForm, errorMessage, fields, fillValues, fillValuesCallback, hideRequiredLegend, id, mode, onError, onSubmit, resetButtonCallback, resetButtonGhost, resetButtonShow, resetButtonTheme, resetButtonTitle, resetButtonVariant, resetOnSubmit, reValidateMode, shouldFocusError, showForm, showSuccessMessage, spacing, submitButtonGhost, submitButtonRounded, submitButtonShow, submitButtonTheme, submitButtonTitle, submitButtonVariant, successCallback, successMessage, title, theme, validation, }: HookFormProps) => React.JSX.Element;
 export default HookForm;

@@ -29,7 +29,7 @@ export interface HookFormProps {
   /**
    * Should the submit button be disabled?
    */
-  disableSubmit?: boolean;
+  disableForm?: boolean;
   /**
    * Should the handleSubmit callback run on blur?
    */
@@ -211,7 +211,7 @@ const HookForm = ({
   criteriaMode = 'all',
   delayError = 500,
   disclaimer,
-  disableSubmit,
+  disableForm,
   errorMessage,
   fields,
   fillValues,
@@ -424,17 +424,16 @@ const HookForm = ({
         message: errorMessage,
       });
     } else {
-      if (showSuccessMessage && successMessage)
-        setSubmitSuccessMessage(successMessage);
-      if (successCallback) successCallback();
-      if (resetOnSubmit) reset();
-      // give browser time to paint before scrolling
-      setTimeout(() => {
-        scrollToElement(`#${successAlertId}`);
-      }, 100);
-      setTimeout(() => {
-        if (showSuccessMessage) setSubmitSuccessMessage('');
-      }, 5000);
+      if (submitCount > 0 && isValid) {
+        if (showSuccessMessage && successMessage)
+          setSubmitSuccessMessage(successMessage);
+        if (successCallback) successCallback();
+        if (resetOnSubmit) reset();
+        // give browser time to paint before scrolling
+        setTimeout(() => {
+          scrollToElement(`#${successAlertId}`);
+        }, 100);
+      }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [submitCount]);
@@ -454,189 +453,128 @@ const HookForm = ({
       className={` bg-white ${theme || ''}`}
       aria-hidden={theme?.includes('hidden') ? true : undefined}
     >
-      {fillValues && (
-        <span className="flex justify-evenly mb-8">
-          {fillValues.map((fillValue) => (
-            <Button
-              key={fillValue.title}
-              variant="secondary"
-              title={fillValue.title}
-              callback={() => {
-                Object.entries(fillValue.data).forEach(([key, value]) => {
-                  setValue(key as FieldNamesType, value, {
-                    shouldDirty: true,
-                    shouldTouch: true,
-                    shouldValidate: true,
+      <fieldset disabled={disableForm}>
+        {fillValues && (
+          <span className="flex justify-evenly mb-8">
+            {fillValues.map((fillValue) => (
+              <Button
+                key={fillValue.title}
+                variant="secondary"
+                title={fillValue.title}
+                callback={() => {
+                  Object.entries(fillValue.data).forEach(([key, value]) => {
+                    setValue(key as FieldNamesType, value, {
+                      shouldDirty: true,
+                      shouldTouch: true,
+                      shouldValidate: true,
+                    });
                   });
-                });
-                if (fillValuesCallback) fillValuesCallback(fillValue.data);
-              }}
-            />
-          ))}
-        </span>
-      )}
-      <div
-        className={`w-full flex mb-3 ${
-          errorFields?.length > 0 || errors?.root || successMessage !== ''
-            ? 'flex-col gap-2'
-            : 'flex-row'
-        }`}
-      >
-        {title && <div className="mr-auto w-full">{title}</div>}
-        {errors?.root &&
-          errors?.root?.message &&
-          errors?.root?.message !== '' && (
+                  if (fillValuesCallback) fillValuesCallback(fillValue.data);
+                }}
+              />
+            ))}
+          </span>
+        )}
+        <div
+          className={`w-full flex mb-3 ${
+            errorFields?.length > 0 || errors?.root || successMessage !== ''
+              ? 'flex-col gap-2'
+              : 'flex-row'
+          }`}
+        >
+          {title && <div className="mr-auto w-full">{title}</div>}
+          {errors?.root &&
+            errors?.root?.message &&
+            errors?.root?.message !== '' && (
+              <Alert
+                id={errorAlertRootId}
+                close={false}
+                callback={() => null}
+                variant="error"
+              >
+                <span>
+                  <div>{errors?.root?.message as string}</div>
+                </span>
+              </Alert>
+            )}
+          {!errors?.root && prettifyErrorFields() && (
             <Alert
-              id={errorAlertRootId}
-              close={false}
               callback={() => null}
               variant="error"
+              id={errorAlertFieldsId}
+              close={false}
             >
-              <span>
-                <div>{errors?.root?.message as string}</div>
-              </span>
+              <span>{prettifyErrorFields()}</span>
             </Alert>
           )}
-        {!errors?.root && prettifyErrorFields() && (
-          <Alert
-            callback={() => null}
-            variant="error"
-            id={errorAlertFieldsId}
-            close={false}
-          >
-            <span>{prettifyErrorFields()}</span>
-          </Alert>
-        )}
 
-        {showSuccessMessage && submitSuccessMessage && (
-          <Alert
-            close={false}
-            callback={() => null}
-            variant="success"
-            id={successAlertId}
-          >
-            <span>{submitSuccessMessage}</span>
-          </Alert>
-        )}
-
-        {sortedFields.some((field) => field.required) &&
-          !hideRequiredLegend && (
-            <div
-              className={`w-full text-xxs flex items-center justify-end -mb-3`}
+          {showSuccessMessage && submitSuccessMessage && (
+            <Alert
+              close={false}
+              callback={() => null}
+              variant="success"
+              id={successAlertId}
             >
-              <span className="text-_-secondary-0 text-base">*</span>
-              <span>indicates a required field</span>
-            </div>
+              <span>{submitSuccessMessage}</span>
+            </Alert>
           )}
-      </div>
-      <div className="flex flex-col gap-12 mt-2">
-        {sortedFields.map((field) => {
-          if (field.hidden) return null;
-          if (field.isToggle) {
-            if (hiddenFields.includes(field.name)) {
-              return (
-                <div className="w-full text-[smaller] -my-6" key={field.name}>
-                  <button
-                    type="button"
-                    id={`${field.name}--add`}
-                    className="block w-max ml-auto cursor-pointer underline border border-transparent"
-                    onClick={() => {
-                      setValue(field.name, field.defaultValue as string);
-                      setHiddenFields([
-                        ...hiddenFields.filter((f) => f !== field.name),
-                      ]);
-                    }}
-                  >
-                    Add {field.title}
-                  </button>
-                </div>
-              );
-            }
-            if (
-              !hiddenFields.includes(field.name) &&
-              getValues(field.name) === field.defaultValue
-            ) {
-              return (
-                <span key={field.name} className="-mt-6">
-                  <div className={`w-full text-[smaller] mb-3`}>
+
+          {sortedFields.some((field) => field.required) &&
+            !hideRequiredLegend && (
+              <div
+                className={`w-full text-xxs flex items-center justify-end -mb-3`}
+              >
+                <span className="text-_-secondary-0 text-base">*</span>
+                <span>indicates a required field</span>
+              </div>
+            )}
+        </div>
+        <div className="flex flex-col gap-12 mt-2">
+          {sortedFields.map((field) => {
+            if (field.hidden) return null;
+            if (field.isToggle) {
+              if (hiddenFields.includes(field.name)) {
+                return (
+                  <div className="w-full text-[smaller] -my-6" key={field.name}>
                     <button
                       type="button"
-                      id={`${field.name}--remove`}
+                      id={`${field.name}--add`}
                       className="block w-max ml-auto cursor-pointer underline border border-transparent"
                       onClick={() => {
-                        setValue(field.name, undefined);
-                        if (!hiddenFields.includes(field.name)) {
-                          setHiddenFields([...hiddenFields, field.name]);
-                        }
-                        unregister(field.name);
+                        setValue(field.name, field.defaultValue as string);
+                        setHiddenFields([
+                          ...hiddenFields.filter((f) => f !== field.name),
+                        ]);
                       }}
                     >
-                      Remove {field.title}
+                      Add {field.title}
                     </button>
                   </div>
-                  <HookFormInput
-                    handleOnChange={handleOnChange}
-                    control={control}
-                    watch={watch}
-                    dirtyFields={dirtyFields}
-                    errors={errors}
-                    field={field}
-                    formId={id}
-                    register={register}
-                    resetField={resetField}
-                    spacing={spacing}
-                    touchedFields={touchedFields}
-                    validation={validation}
-                  />
-                </span>
-              );
-            }
-          }
-          if (field.type === 'captcha' || field.name === 'captcha') {
-            if (!field.captchaKey) {
-              throw new Error('captchaKey is required for captcha field');
-            }
-            return (
-              <div className="flex flex-col items-center" key={field.name}>
-                <span
-                  className={`border-2
-                  ${
-                    errors?.captcha
-                      ? 'border-_-states-error'
-                      : 'border-transparent'
-                  }
-                `}
-                >
-                  <ReCAPTCHA
-                    sitekey={field.captchaKey}
-                    onChange={(value) => {
-                      if (value) setValue('captcha', value);
-                    }}
-                  />
-                </span>
-              </div>
-            );
-          }
-
-          if (
-            id === 'checkoutAddressDeliveryForm' &&
-            field.name === 'addressLine1'
-          ) {
-            return (
-              <Controller
-                key={field.name}
-                name={field.name}
-                control={control}
-                render={(args) => (
-                  <>
-                    <div className="sr-only" id="GoogleAddressAutoFill">
-                      Use the up and down arrow keys to navigate the
-                      suggestions. Press enter to select a suggestion. Pressing
-                      enter will not submit the form.
+                );
+              }
+              if (
+                !hiddenFields.includes(field.name) &&
+                getValues(field.name) === field.defaultValue
+              ) {
+                return (
+                  <span key={field.name} className="-mt-6">
+                    <div className={`w-full text-[smaller] mb-3`}>
+                      <button
+                        type="button"
+                        id={`${field.name}--remove`}
+                        className="block w-max ml-auto cursor-pointer underline border border-transparent"
+                        onClick={() => {
+                          setValue(field.name, undefined);
+                          if (!hiddenFields.includes(field.name)) {
+                            setHiddenFields([...hiddenFields, field.name]);
+                          }
+                          unregister(field.name);
+                        }}
+                      >
+                        Remove {field.title}
+                      </button>
                     </div>
                     <HookFormInput
-                      aria-describedby="GoogleAddressAutoFill"
-                      {...args.field}
                       handleOnChange={handleOnChange}
                       control={control}
                       watch={watch}
@@ -650,63 +588,126 @@ const HookForm = ({
                       touchedFields={touchedFields}
                       validation={validation}
                     />
-                  </>
-                )}
+                  </span>
+                );
+              }
+            }
+            if (field.type === 'captcha' || field.name === 'captcha') {
+              if (!field.captchaKey) {
+                throw new Error('captchaKey is required for captcha field');
+              }
+              return (
+                <div className="flex flex-col items-center" key={field.name}>
+                  <span
+                    className={`border-2
+                  ${
+                    errors?.captcha
+                      ? 'border-_-states-error'
+                      : 'border-transparent'
+                  }
+                `}
+                  >
+                    <ReCAPTCHA
+                      sitekey={field.captchaKey}
+                      onChange={(value) => {
+                        if (value) setValue('captcha', value);
+                      }}
+                    />
+                  </span>
+                </div>
+              );
+            }
+
+            if (
+              id === 'checkoutAddressDeliveryForm' &&
+              field.name === 'addressLine1'
+            ) {
+              return (
+                <Controller
+                  key={field.name}
+                  name={field.name}
+                  control={control}
+                  render={(args) => (
+                    <>
+                      <div className="sr-only" id="GoogleAddressAutoFill">
+                        Use the up and down arrow keys to navigate the
+                        suggestions. Press enter to select a suggestion.
+                        Pressing enter will not submit the form.
+                      </div>
+                      <HookFormInput
+                        aria-describedby="GoogleAddressAutoFill"
+                        {...args.field}
+                        handleOnChange={handleOnChange}
+                        control={control}
+                        watch={watch}
+                        dirtyFields={dirtyFields}
+                        errors={errors}
+                        field={field}
+                        formId={id}
+                        register={register}
+                        resetField={resetField}
+                        spacing={spacing}
+                        touchedFields={touchedFields}
+                        validation={validation}
+                      />
+                    </>
+                  )}
+                />
+              );
+            }
+            return (
+              <HookFormInput
+                handleOnChange={handleOnChange}
+                control={control}
+                watch={watch}
+                dirtyFields={dirtyFields}
+                errors={errors}
+                field={field}
+                formId={id}
+                key={field.name}
+                register={register}
+                resetField={resetField}
+                spacing={spacing}
+                touchedFields={touchedFields}
+                validation={validation}
               />
             );
-          }
-          return (
-            <HookFormInput
-              handleOnChange={handleOnChange}
-              control={control}
-              watch={watch}
-              dirtyFields={dirtyFields}
-              errors={errors}
-              field={field}
-              formId={id}
-              key={field.name}
-              register={register}
-              resetField={resetField}
-              spacing={spacing}
-              touchedFields={touchedFields}
-              validation={validation}
-            />
-          );
-        })}
-        <div className="flex justify-between">
-          {resetButtonShow && (
-            <Button
-              type="reset"
-              callback={() => {
-                if (resetButtonCallback) resetButtonCallback();
-                reset();
-              }}
-              title={resetButtonTitle}
-              theme={resetButtonTheme}
-              ghost={resetButtonGhost}
-              variant={resetButtonVariant}
-            />
-          )}
-          {submitButtonShow && (
-            <>
-              {/* ignore button callback required prop */}
-              {/* @ts-ignore-next-line */}
+          })}
+          <div className="flex justify-between">
+            {resetButtonShow && (
               <Button
-                disabled={disabled || disableSubmit}
-                ghost={submitButtonGhost}
-                rounded={submitButtonRounded}
-                theme={`ml-auto ${
-                  resetButtonShow !== true && 'w-full'
-                } ${submitButtonTheme}`}
-                title={submitButtonTitle}
-                type="submit"
-                variant={submitButtonVariant}
+                type="reset"
+                callback={() => {
+                  if (resetButtonCallback) resetButtonCallback();
+                  reset();
+                }}
+                title={resetButtonTitle}
+                theme={resetButtonTheme}
+                ghost={resetButtonGhost}
+                variant={resetButtonVariant}
               />
-            </>
-          )}
+            )}
+            {submitButtonShow && (
+              <>
+                {/* ignore button callback required prop */}
+                {/* @ts-ignore-next-line */}
+                <Button
+                  disabled={disabled || disableForm}
+                  ghost={submitButtonGhost}
+                  rounded={submitButtonRounded}
+                  theme={`ml-auto ${
+                    resetButtonShow !== true && 'w-full'
+                  } ${submitButtonTheme}`}
+                  title={submitButtonTitle}
+                  type="submit"
+                  variant={submitButtonVariant}
+                />
+              </>
+            )}
+          </div>
+          {disclaimer && <div className="text-xs">{disclaimer}</div>}
         </div>
-        {disclaimer && <div className="text-xs">{disclaimer}</div>}
-      </div>
+      </fieldset>
     </form>
   );
 };

@@ -7,6 +7,7 @@ import { numberRegex, specialCharRegex } from './HookFormValidationSchemas';
 import { errorMessages } from './HookFormValidationSchemas';
 
 export interface HookFormPasswordValidatorProps {
+  dirtyFields: UseFormReturn<FieldsType>['formState']['dirtyFields'];
   /**
    * An object with field errors.
    * @see https://react-hook-form.com/docs/useform/formstate `errors` entry
@@ -26,10 +27,12 @@ export interface HookFormPasswordValidatorProps {
  * This is only to be consumed inside the HookForm component. You should not need to use this component directly. Did you mean to use `<PasswordValidator />` component?
  */
 const HookFormPasswordValidator = ({
-  password,
+  dirtyFields,
   errors,
   fieldName,
+  password,
 }: HookFormPasswordValidatorProps) => {
+  const isTouched = dirtyFields[fieldName];
   const hasError = errors[fieldName];
   const tooShort = password ? password.length < 8 : true;
   const missingSpecialChar = !specialCharRegex.test(password || '');
@@ -49,6 +52,13 @@ const HookFormPasswordValidator = ({
     />
   );
 
+  const isNotTouched = (
+    <i
+      className="transition-all fa-sharp fa-regular fa-circle-question text-_-neutrals-400"
+      aria-hidden="true"
+    />
+  );
+
   return (
     <section
       id="PasswordValidator"
@@ -61,15 +71,19 @@ const HookFormPasswordValidator = ({
       </div>
       <ul className="text-_-neutrals-700">
         <li>
-          {tooShort ? isInvalid : isValid}
+          {isTouched ? (tooShort ? isInvalid : isValid) : isNotTouched}
           &nbsp; {errorMessages.password.short}
         </li>
         <li>
-          {missingSpecialChar ? isInvalid : isValid}
+          {isTouched
+            ? missingSpecialChar
+              ? isInvalid
+              : isValid
+            : isNotTouched}
           &nbsp; {errorMessages.password.special}
         </li>
         <li>
-          {missingNum ? isInvalid : isValid}
+          {isTouched ? (missingNum ? isInvalid : isValid) : isNotTouched}
           &nbsp; {errorMessages.password.number}
         </li>
       </ul>

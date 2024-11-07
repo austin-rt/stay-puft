@@ -11,9 +11,7 @@ import { passwordsWithValidator } from './HookFormValidationSchemas';
 /**
  * This is only to be consumed inside the HookForm component. You should not need to use this component directly.
  */
-const HookFormInput = ({ 
-// dirtyFields,
-errors, field, formId, handleOnChange, register, resetField, spacing, 
+const HookFormInput = ({ dirtyFields, errors, field, formId, handleOnChange, register, resetField, spacing, 
 // touchedFields,
 validation, watch, }) => {
     var _a, _b, _c, _d, _e, _f, _g;
@@ -119,7 +117,7 @@ validation, watch, }) => {
             // setValueAs={fld?.setValueAs}
             showPasswordButton: fld === null || fld === void 0 ? void 0 : fld.showPasswordButton, submitIcon: fld.submitIcon, title: fld.title, type: fld.type, validation: validation })),
         fld.tooltip && (React.createElement("div", { className: "absolute right-0 bottom-0 -mb-6 border-2 rounded-b-lg border-_-neutrals-400 bg-_-neutrals-100" }, fld.tooltip)),
-        passwordsWithValidator.includes(fld.name) && !fld.disabled && (React.createElement(HookFormPasswordValidator, { password: password, fieldName: fld.name, errors: errors }))));
+        passwordsWithValidator.includes(fld.name) && !fld.disabled && (React.createElement(HookFormPasswordValidator, { password: password, fieldName: fld.name, errors: errors, dirtyFields: dirtyFields }))));
 };
 export default HookFormInput;
 //# sourceMappingURL=HookFormInput.js.map

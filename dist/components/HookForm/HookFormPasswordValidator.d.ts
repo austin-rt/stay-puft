@@ -2,6 +2,7 @@ import React from 'react';
 import { UseFormReturn } from 'react-hook-form';
 import { FieldNamesType, FieldsType } from '../../types';
 export interface HookFormPasswordValidatorProps {
+    dirtyFields: UseFormReturn<FieldsType>['formState']['dirtyFields'];
     /**
      * An object with field errors.
      * @see https://react-hook-form.com/docs/useform/formstate `errors` entry
@@ -19,5 +20,5 @@ export interface HookFormPasswordValidatorProps {
 /**
  * This is only to be consumed inside the HookForm component. You should not need to use this component directly. Did you mean to use `<PasswordValidator />` component?
  */
-declare const HookFormPasswordValidator: ({ password, errors, fieldName, }: HookFormPasswordValidatorProps) => React.JSX.Element;
+declare const HookFormPasswordValidator: ({ dirtyFields, errors, fieldName, password, }: HookFormPasswordValidatorProps) => React.JSX.Element;
 export default HookFormPasswordValidator;

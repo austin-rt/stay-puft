@@ -87,7 +87,7 @@ export interface HookFormInputProps {
  * This is only to be consumed inside the HookForm component. You should not need to use this component directly.
  */
 const HookFormInput = ({
-  // dirtyFields,
+  dirtyFields,
   errors,
   field,
   formId,
@@ -341,6 +341,7 @@ const HookFormInput = ({
           password={password}
           fieldName={fld.name}
           errors={errors}
+          dirtyFields={dirtyFields}
         />
       )}
     </div>

@@ -71,7 +71,11 @@ showPasswordButton = true, size = 50, submitIcon, theme, title = '', type = 'tex
                 React.createElement("div", { className: "flex" },
                     type.toLowerCase().includes('password') && showPasswordButton && (React.createElement(Button, { disabled: disabled, variant: buttonVariant, ghost: true, callback: () => {
                             inputTypeSetter(inputType === 'password' ? 'text' : 'password');
-                        }, ariaControls: id, ariaExpanded: false, title: `${inputType === 'password' ? 'Show' : 'Hide'}`, rounded: buttonRounded, size: buttonSize, theme: `bg-transparent hover:bg-trasparent text-xs text-_-neutrals-900 border-0 border-none ${buttonTheme}` })),
+                        }, ariaControls: id, ariaExpanded: false, title: inputType === 'password' ? (React.createElement("span", null,
+                            React.createElement("i", { className: "fa-solid fa-eye text-xl mr-0.5" }),
+                            React.createElement("span", { className: "sr-only" }, "Show Password"))) : (React.createElement("span", null,
+                            React.createElement("i", { className: "fa-solid fa-eye-slash text-xl" }),
+                            React.createElement("span", { className: "sr-only" }, "Hide Password"))), rounded: buttonRounded, size: buttonSize, theme: `bg-transparent hover:bg-trasparent text-xs text-_-neutrals-900 border-0 border-none ${buttonTheme}` })),
                     !type.toLowerCase().includes('password') && submitIcon && (React.createElement(React.Fragment, null,
                         React.createElement(Button, { disabled: disabled, variant: "custom", theme: "group border-none", type: "submit", title: React.createElement("i", { className: "group-disabled:text-_-imperfect-400/40 group-disabled:active:border-none" }), trailingIcon: submitIcon }))),
                     !type.toLowerCase().includes('password') &&

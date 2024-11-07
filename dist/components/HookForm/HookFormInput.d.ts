@@ -63,5 +63,5 @@ export interface HookFormInputProps {
 /**
  * This is only to be consumed inside the HookForm component. You should not need to use this component directly.
  */
-declare const HookFormInput: ({ errors, field, formId, handleOnChange, register, resetField, spacing, validation, watch, }: HookFormInputProps) => React.JSX.Element;
+declare const HookFormInput: ({ dirtyFields, errors, field, formId, handleOnChange, register, resetField, spacing, validation, watch, }: HookFormInputProps) => React.JSX.Element;
 export default HookFormInput;
