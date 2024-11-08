@@ -209,11 +209,11 @@ export interface HookFormProps {
  *
  * ## Ease of Use
  * The actual code here isn't the point but take a look at the <b>amount of code</b> our developers would have to write to implenent the same form with <b>fewer</b> features.
- *<div style="width: 100%; display:flex; justify-content:space-evenly;">
+ *<div className="w-full flex justify-evenly">
  *   <div>Before Puft Forms</div>
  *   <div>After Puft Forms</div>
  *  </div>
- * <div className="w-full h-[500px] flex justify-around overflow-hidden mt-[5px]">
+ * <div className="w-full h-[250px] md:h-[500px] flex justify-around overflow-hidden mt-[5px]">
  * <div className="w-full overflow-y-scroll">
  * <img
  *   src="assets/before.png"
