@@ -227,23 +227,24 @@ export interface HookFormProps {
  *  - Includes a `honeypot` field to stop spam in its tracks.
  *
  * ## Ease of Use
- * Here's a side by side of the code our developers would have to write to implenent the same form with fewer features.
+ * The actual code here isn't the point but take a look at the <b>amount of code</b> our developers would have to write to implenent the same form with <b>fewer</b> features.
  *<div style="width: 100%; display:flex; justify-content:space-evenly;">
  *   <div>Before Puft Forms</div>
  *   <div>After Puft Forms</div>
  *  </div>
- * <div
- * style="width: 100%; height: 500px; display:flex; justify-content:space-around; overflow:hidden; margin-top:5px;">
- * <iframe
- *   src="https://carbon.now.sh/embed/NP6OdpSl2gFnT1RYPs8I"
- *   style="width: 1024px; height: 500px; border:0; transform: scale(1); overflow-x:hidden; overflow-y:scroll;"
- *   sandbox="allow-scripts allow-same-origin">
- * </iframe>
- * <iframe
- *   src="https://carbon.now.sh/embed/XkAg5oqxhpKmAlMkCKAl"
- *  style="width: 1024px; height: 500px; border:0; transform: scale(1); overflow-x:hidden; overflow-y:scroll;"
- *  sandbox="allow-scripts allow-same-origin">
- * </iframe>
+ * <div className="w-full h-[500px] flex justify-around overflow-hidden mt-[5px]">
+ * <div className="w-full overflow-y-scroll">
+ * <img
+ *   src="assets/before.png"
+ * className="w-full"
+ * />
+ * </div>
+ * <div className="w-full overflow-y-scroll">
+ * <img
+ *   src="assets/after.png"
+ * className="w-full"
+ * />
+ * </div>
  * </div>
  *
  * ## Leverages:
@@ -575,10 +576,13 @@ const HookForm = ({
           {(sortedFields.every((field) => field?.optional) ||
             !hideRequiredLegend) && (
             <div
-              className={`w-full text-xxs flex items-center justify-end -mb-3`}
+              className={`w-full text-xxs flex items-center justify-end -mb-2`}
             >
               <span className="text-_-secondary-0 text-base">*</span>
-              <span>indicates a required field</span>
+              <span>
+                <span className="hidden sm:inline">indicates </span>required
+                field
+              </span>
             </div>
           )}
         </div>
