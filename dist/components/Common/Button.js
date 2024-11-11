@@ -1,14 +1,10 @@
-import React from 'react';
+import { jsxDEV as _jsxDEV } from "react/jsx-dev-runtime";
+const _jsxFileName = "/Users/austin/code/af/stay-puft/src/components/Common/Button.tsx";
 import { button } from '../configs/buttons';
 const Button = ({ id = undefined, callback, ariaControls, ariaExpanded, disabled = false, loading = false, ghost = false, title = '', theme = '', rounded = false, size = 'md', variant = 'default', leadingIcon, trailingIcon, loadingText = 'Loading...', loadingIcon = 'fa-solid fa-circle-notch fa-spin', ariaLabel, type = 'button', srDesc = '', }) => {
-    return (React.createElement("button", { id: id, type: type, disabled: loading || disabled, "aria-label": ariaLabel, "aria-controls": ariaControls, "aria-expanded": ariaExpanded, onClick: callback, className: `${rounded ? 'rounded-full' : 'rounded-md'} ${button.size[size]} ${disabled === true && loading !== true ? disabled : ''} ${ghost
+    return (_jsxDEV("button", Object.assign({ id: id, type: type, disabled: loading || disabled, "aria-label": ariaLabel, "aria-controls": ariaControls, "aria-expanded": ariaExpanded, onClick: callback, className: `${rounded ? 'rounded-full' : 'rounded-md'} ${button.size[size]} ${disabled === true && loading !== true ? disabled : ''} ${ghost
             ? `${button.ghostBorder[size]} ${button.ghost[variant]}`
-            : `${button.border[size]} ${button.variant[variant]}`} ${theme}` },
-        srDesc && srDesc.length > 0 && React.createElement("span", { className: "sr-only" }, srDesc),
-        leadingIcon && React.createElement("i", { className: `mr-2 ${leadingIcon}` }),
-        loading ? loadingText : title || variant.toUpperCase(),
-        trailingIcon && React.createElement("i", { className: `ml-2 ${trailingIcon}` }),
-        loading === true && React.createElement("i", { className: loadingIcon })));
+            : `${button.border[size]} ${button.variant[variant]}`} ${theme}` }, { children: [srDesc && srDesc.length > 0 && _jsxDEV("span", Object.assign({ className: "sr-only" }, { children: srDesc }), void 0, false, { fileName: _jsxFileName, lineNumber: 64, columnNumber: 38 }, this), leadingIcon && _jsxDEV("i", { className: `mr-2 ${leadingIcon}` }, void 0, false, { fileName: _jsxFileName, lineNumber: 65, columnNumber: 22 }, this), loading ? loadingText : title || variant.toUpperCase(), trailingIcon && _jsxDEV("i", { className: `ml-2 ${trailingIcon}` }, void 0, false, { fileName: _jsxFileName, lineNumber: 67, columnNumber: 23 }, this), loading === true && _jsxDEV("i", { className: loadingIcon }, void 0, false, { fileName: _jsxFileName, lineNumber: 68, columnNumber: 27 }, this)] }), void 0, true, { fileName: _jsxFileName, lineNumber: 47, columnNumber: 11 }, this));
 };
 export default Button;
 //# sourceMappingURL=Button.js.map

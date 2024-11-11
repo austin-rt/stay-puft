@@ -1,4 +1,4 @@
-import React, { ChangeEvent, FocusEvent, ReactNode } from 'react';
+import { ChangeEvent, FocusEvent, ReactNode } from 'react';
 import { FieldNamesType, FieldValidationMethodType, OptionType } from '../../types';
 export interface SelectProps {
     /**
@@ -70,5 +70,5 @@ export interface SelectProps {
 /**
  * This is only to be consumed inside the HookForm component. You should not need to use this component directly. Did you mean to use `<TextInput />` component?
  */
-declare const HookFormSelect: ({ disabled, error, formId, id, labelTheme, name, onBlur, onChange, onFocus, optional, options, register, selectTheme, theme, title, validation, }: SelectProps) => React.JSX.Element;
+declare const HookFormSelect: ({ disabled, error, formId, id, labelTheme, name, onBlur, onChange, onFocus, optional, options, register, selectTheme, theme, title, validation, }: SelectProps) => import("react/jsx-dev-runtime").JSX.Element;
 export default HookFormSelect;

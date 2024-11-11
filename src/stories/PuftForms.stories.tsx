@@ -105,7 +105,7 @@ const render = (args: HookFormProps) => <HookFormWrapper {...args} />;
 type StoryProps = ComponentProps<typeof HookForm>;
 
 const meta: Meta<StoryProps> = {
-  title: 'Stay Puft Forms',
+  title: 'Demo',
   component: HookForm,
   tags: ['autodocs'],
   argTypes: {
@@ -330,7 +330,7 @@ export default meta;
 
 type Story = StoryObj<StoryProps>;
 
-export const StayPuftForms: Story = {
+export const ExampleForm: Story = {
   args: {
     fields: [
       {

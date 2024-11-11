@@ -9,5 +9,5 @@ export interface AlertProps {
     close?: boolean;
     theme?: string;
 }
-declare const Alert: ({ callback, children, variant, id, icon, close, theme, }: AlertProps) => React.JSX.Element;
+declare const Alert: ({ callback, children, variant, id, icon, close, theme, }: AlertProps) => import("react/jsx-dev-runtime").JSX.Element;
 export default Alert;
