@@ -1,4 +1,4 @@
-import { ChangeEvent, FocusEvent, KeyboardEvent, ReactNode } from 'react';
+import React, { ChangeEvent, FocusEvent, KeyboardEvent, ReactNode } from 'react';
 import { ButtonProps } from '../Common/Button';
 import { UseFormProps } from 'react-hook-form';
 import { FieldNamesType, FieldValidationMethodType } from '../../types';
@@ -44,5 +44,5 @@ export interface HookFormTextInputProps {
 /**
  * This is only to be consumed inside the HookForm component. You should not need to use this component directly. Did you mean to use `<TextInput />` component?
  */
-declare const HookFormTextInput: ({ ariaDescribedby, arialabel, autoComplete, autoCorrect, baseTheme, buttonRounded, buttonSize, buttonTheme, buttonVariant, disabled, error, id, inputTheme, labelTheme, name, onBlur, onChange, onFocus, onKeyDown, onKeyUp, optional, placeholder, register, resetButton, resetCallback, showPasswordButton, size, submitIcon, theme, title, type, validation, criteriaMode, }: HookFormTextInputProps) => import("react/jsx-dev-runtime").JSX.Element;
+declare const HookFormTextInput: ({ ariaDescribedby, arialabel, autoComplete, autoCorrect, baseTheme, buttonRounded, buttonSize, buttonTheme, buttonVariant, disabled, error, id, inputTheme, labelTheme, name, onBlur, onChange, onFocus, onKeyDown, onKeyUp, optional, placeholder, register, resetButton, resetCallback, showPasswordButton, size, submitIcon, theme, title, type, validation, criteriaMode, }: HookFormTextInputProps) => React.JSX.Element;
 export default HookFormTextInput;

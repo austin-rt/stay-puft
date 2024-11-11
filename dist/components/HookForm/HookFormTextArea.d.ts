@@ -1,4 +1,4 @@
-import { ChangeEvent, FocusEvent, KeyboardEvent, ReactNode } from 'react';
+import React, { ChangeEvent, FocusEvent, KeyboardEvent, ReactNode } from 'react';
 import { FieldNamesType, FieldValidationMethodType } from '../../types';
 export interface HookFormTextAreaProps {
     /**
@@ -97,5 +97,5 @@ export interface HookFormTextAreaProps {
 /**
  * This is only to be consumed inside the HookForm component. You should not need to use this component directly. Did you mean to use `<TextArea />` component?
  */
-declare const HookFormTextArea: ({ ariaDescribedby, autoComplete, autoCorrect, disabled, error, id, inputTheme, labelTheme, name, onBlur, onChange, onFocus, onKeyDown, onKeyUp, optional, placeholder, register, rows, spellCheck, theme, title, validation, }: HookFormTextAreaProps) => import("react/jsx-dev-runtime").JSX.Element;
+declare const HookFormTextArea: ({ ariaDescribedby, autoComplete, autoCorrect, disabled, error, id, inputTheme, labelTheme, name, onBlur, onChange, onFocus, onKeyDown, onKeyUp, optional, placeholder, register, rows, spellCheck, theme, title, validation, }: HookFormTextAreaProps) => React.JSX.Element;
 export default HookFormTextArea;

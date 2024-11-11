@@ -1,4 +1,4 @@
-import { ReactElement, ReactNode } from 'react';
+import React, { ReactElement, ReactNode } from 'react';
 import { button } from '../configs/buttons';
 export interface ButtonProps {
     id?: string | undefined;
@@ -21,5 +21,5 @@ export interface ButtonProps {
     type?: 'button' | 'submit' | 'reset';
     srDesc?: string;
 }
-declare const Button: ({ id, callback, ariaControls, ariaExpanded, disabled, loading, ghost, title, theme, rounded, size, variant, leadingIcon, trailingIcon, loadingText, loadingIcon, ariaLabel, type, srDesc, }: ButtonProps) => import("react/jsx-dev-runtime").JSX.Element;
+declare const Button: ({ id, callback, ariaControls, ariaExpanded, disabled, loading, ghost, title, theme, rounded, size, variant, leadingIcon, trailingIcon, loadingText, loadingIcon, ariaLabel, type, srDesc, }: ButtonProps) => React.JSX.Element;
 export default Button;

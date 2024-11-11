@@ -1,4 +1,4 @@
-import { ChangeEvent, FocusEvent, ReactNode } from 'react';
+import React, { ChangeEvent, FocusEvent, ReactNode } from 'react';
 import { FieldNamesType, FieldValidationMethodType } from '../../types';
 export interface HookFormCheckboxProps {
     /**
@@ -70,5 +70,5 @@ export interface HookFormCheckboxProps {
 /**
  * This is only to be consumed inside the HookForm component. You should not need to use this component directly. Did you mean to use `<Checkbox />` component?
  */
-declare const HookFormCheckbox: ({ checkTheme, disabled, error, id, inputTheme, name, onBlur, onChange, onFocus, optional, register, theme, title, titleTheme, validation, }: HookFormCheckboxProps) => import("react/jsx-dev-runtime").JSX.Element;
+declare const HookFormCheckbox: ({ checkTheme, disabled, error, id, inputTheme, name, onBlur, onChange, onFocus, optional, register, theme, title, titleTheme, validation, }: HookFormCheckboxProps) => React.JSX.Element;
 export default HookFormCheckbox;

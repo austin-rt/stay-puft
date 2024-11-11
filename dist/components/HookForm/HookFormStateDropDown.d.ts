@@ -1,4 +1,4 @@
-import { ChangeEvent, FocusEvent, ReactNode } from 'react';
+import React, { ChangeEvent, FocusEvent, ReactNode } from 'react';
 import { FieldNamesType, FieldValidationMethodType } from '../../types';
 export interface HookFormStateDropDownProps {
     /**
@@ -66,5 +66,5 @@ export interface HookFormStateDropDownProps {
 /**
  * This is only to be consumed inside the HookForm component. You should not need to use this component directly. Did you mean to use `<StateDropdown />` component?
  */
-declare const HookFormStateDropDown: ({ disabled, error, formId, labelTheme, name, onBlur, onChange, onFocus, optional, register, selectTheme, theme, title, validation, }: HookFormStateDropDownProps) => import("react/jsx-dev-runtime").JSX.Element;
+declare const HookFormStateDropDown: ({ disabled, error, formId, labelTheme, name, onBlur, onChange, onFocus, optional, register, selectTheme, theme, title, validation, }: HookFormStateDropDownProps) => React.JSX.Element;
 export default HookFormStateDropDown;

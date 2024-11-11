@@ -1,3 +1,4 @@
+import React from 'react';
 import { UseFormRegister, UseFormResetField, UseFormReturn } from 'react-hook-form';
 import { ChangeEventTypes, FieldsType, FieldType, FieldValidationMethodType } from '../../types';
 export interface HookFormInputProps {
@@ -62,5 +63,5 @@ export interface HookFormInputProps {
 /**
  * This is only to be consumed inside the HookForm component. You should not need to use this component directly.
  */
-declare const HookFormInput: ({ dirtyFields, errors, field, formId, handleOnChange, register, resetField, spacing, validation, watch, }: HookFormInputProps) => import("react/jsx-dev-runtime").JSX.Element;
+declare const HookFormInput: ({ dirtyFields, errors, field, formId, handleOnChange, register, resetField, spacing, validation, watch, }: HookFormInputProps) => React.JSX.Element;
 export default HookFormInput;

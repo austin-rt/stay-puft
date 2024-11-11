@@ -1,4 +1,4 @@
-import { ChangeEvent, FocusEvent, ReactNode } from 'react';
+import React, { ChangeEvent, FocusEvent, ReactNode } from 'react';
 import { FieldNamesType, FieldValidationMethodType, OptionType } from '../../types';
 export interface HookFormRadioProps {
     /**
@@ -74,5 +74,5 @@ export interface HookFormRadioProps {
 /**
  * This is only to be consumed inside the HookForm component. You should not need to use this component directly. Did you mean to use `<Radio />` component?
  */
-declare const HookFormRadio: ({ ariaControls, ariaExpanded, disabled, error, name, onBlur, onChange, onFocus, optional, options, register, showTitle, checkSpacing, theme, title, validation, verticalSpacing, }: HookFormRadioProps) => import("react/jsx-dev-runtime").JSX.Element;
+declare const HookFormRadio: ({ ariaControls, ariaExpanded, disabled, error, name, onBlur, onChange, onFocus, optional, options, register, showTitle, checkSpacing, theme, title, validation, verticalSpacing, }: HookFormRadioProps) => React.JSX.Element;
 export default HookFormRadio;

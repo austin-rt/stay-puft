@@ -18,5 +18,5 @@ export interface Props {
     iconColor?: string;
     ariaControls?: string;
 }
-declare const Tooltip: ({ callback, focusCb, blurCb, content, id, position, showQuestion, showInfo, showOnHover, theme, themeTooltip, themeWrapper, title, width, buttonComponent, iconColor, }: Props) => import("react/jsx-dev-runtime").JSX.Element;
+declare const Tooltip: ({ callback, focusCb, blurCb, content, id, position, showQuestion, showInfo, showOnHover, theme, themeTooltip, themeWrapper, title, width, buttonComponent, iconColor, }: Props) => React.JSX.Element;
 export default Tooltip;
